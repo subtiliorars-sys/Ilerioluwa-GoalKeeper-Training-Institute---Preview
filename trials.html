@@ -6,6 +6,8 @@
 <title>Trials &amp; Registration — Ilerioluwa Goalkeeper Training Center</title>
 <meta name="description" content="Book a free trial session at Ilerioluwa Goalkeeper Training Center in Ibadan. Ages U15–18+. Your first session is always free.">
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<meta name="theme-color" content="#0b0c0a">
+<link rel="manifest" href="site.webmanifest">
 <link rel="canonical" href="https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/trials.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ilerioluwa Goalkeeper Training Center">
@@ -52,7 +54,44 @@
   </div>
 </div>
 
-<section class="band">
+<section class="band" id="register">
+  <div class="wrap">
+    <h2>Book your free trial</h2>
+    <p>Fill this in and tap <strong>Book on WhatsApp</strong> — it opens a chat with
+    your details already typed. Just press send. No account, no payment, no card.</p>
+    <!-- WhatsApp-prefill funnel (assets/js/forms.js). mailto = no-JS fallback.
+         Nothing is stored: the message is composed in the parent's own WhatsApp. -->
+    <form class="card wa-form" action="mailto:akindekotobi3@gmail.com" method="get" enctype="text/plain"
+          data-wa-intro="Hello Ilerioluwa Goalkeeper Training Center — I'd like to book a FREE trial session.">
+      <div class="grid cols-2">
+        <p><label>Keeper's name<br>
+          <input name="keeper" data-wa-label="Keeper's name" required autocomplete="name"></label></p>
+        <p><label>Age group<br>
+          <select name="age" data-wa-label="Age group">
+            <option>U15–U17</option><option>18+</option>
+          </select></label></p>
+        <p><label>Parent / guardian name<br>
+          <input name="guardian" data-wa-label="Parent/guardian"></label></p>
+        <p><label>Phone number<br>
+          <input name="phone" type="tel" data-wa-label="Phone" inputmode="tel" autocomplete="tel"
+            placeholder="e.g. 0803 000 0000"></label></p>
+      </div>
+      <p><label>Preferred training day (optional)<br>
+        <input name="day" data-wa-label="Preferred day" placeholder="Any of our 3 weekly sessions"></label></p>
+      <p><label>Anything we should know? (optional)<br>
+        <textarea name="note" rows="3" data-wa-label="Notes"
+          placeholder="New to goalkeeping, medical info, etc."></textarea></label></p>
+      <button class="btn btn-gold" type="submit">💬 Book on WhatsApp</button>
+      <small>Opens WhatsApp with your details pre-filled — you press send. Or
+      <a href="https://wa.me/2347036190935?text=I%20want%20to%20book%20a%20free%20trial%20session">message us directly</a>.</small>
+      <p class="notice wa-sent" hidden>✓ WhatsApp is opening with your details — press
+      <strong>send</strong> to finish booking. Didn't open?
+      <a href="https://wa.me/2347036190935">Tap here to chat</a>.</p>
+    </form>
+  </div>
+</section>
+
+<section class="band alt">
   <div class="wrap">
     <h2>How it works</h2>
     <ol class="steps">
@@ -65,15 +104,17 @@
       <li><strong>Register and pay securely online.</strong> Complete the short
       registration and pay the first month via our secure payment link.</li>
     </ol>
-    <!-- TODO: real Paystack payment page link -->
+    <!-- Paystack link lives in assets/js/config.js (paystackUrl). While empty the
+         button stays disabled; the moment the real link is set it activates and the
+         "pending" note hides automatically. No code change needed to go live. -->
     <p>
-      <a class="btn btn-green" href="#" data-fill-href="paystackUrl" aria-disabled="true">Pay securely with Paystack</a>
-      <span class="sample">SAMPLE — link pending</span>
+      <a class="btn btn-green is-disabled" href="#" data-fill-href="paystackUrl" aria-disabled="true">Pay securely with Paystack</a>
+      <span class="sample" data-when-empty="paystackUrl">SAMPLE — secure payment link coming soon</span>
     </p>
   </div>
 </section>
 
-<section class="band alt">
+<section class="band">
   <div class="wrap">
     <h2>Open trial days</h2>
     <p>Beyond free trials, we hold <strong>open trial days</strong> each intake —
@@ -158,5 +199,6 @@
 <a class="wa-float" href="https://wa.me/2347036190935">💬 WhatsApp us</a>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/forms.js"></script>
 </body>
 </html>

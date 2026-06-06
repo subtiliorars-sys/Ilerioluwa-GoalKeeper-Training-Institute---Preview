@@ -1,0 +1,16 @@
+{
+  "name": "Ilerioluwa Goalkeeper Training Center",
+  "short_name": "Ileri GK",
+  "description": "Specialist goalkeeper training in Ibadan, Nigeria. Book a free trial session.",
+  "lang": "en",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0c0a",
+  "theme_color": "#0b0c0a",
+  "icons": [
+    { "src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/img/og-card.png", "sizes": "1200x630", "type": "image/png", "purpose": "any" }
+  ]
+}

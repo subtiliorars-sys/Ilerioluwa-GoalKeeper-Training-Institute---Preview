@@ -33,7 +33,23 @@ window.SITE = {
   });
   document.querySelectorAll('[data-fill-href]').forEach(function (el) {
     var v = S[el.getAttribute('data-fill-href')];
-    if (v) { el.href = v; el.removeAttribute('aria-disabled'); }
+    if (v) {
+      el.href = v;
+      el.removeAttribute('aria-disabled');
+      el.classList.remove('is-disabled');
+      // external payment link → open safely in a new tab
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener');
+    } else {
+      // keep it visibly inert until a real link is configured
+      el.classList.add('is-disabled');
+      el.setAttribute('aria-disabled', 'true');
+    }
+  });
+
+  // Hide "pending"/SAMPLE markers once their source value is filled in.
+  document.querySelectorAll('[data-when-empty]').forEach(function (el) {
+    if (S[el.getAttribute('data-when-empty')]) el.hidden = true;
   });
   // mailto links
   document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
