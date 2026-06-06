@@ -365,3 +365,47 @@ input, select, textarea {
 }
 input:focus, select:focus, textarea:focus { outline: 2px solid var(--volt); border-color: var(--volt); }
 button.btn { border: none; cursor: pointer; font: inherit; }
+
+/* ============================================================
+   Print styles — let parents print a clean trials/schedule sheet.
+   The screen theme is dark (wastes ink, renders poorly on paper),
+   so print switches to black-on-white and drops the chrome.
+   ============================================================ */
+@media print {
+  /* Black on white; kill backgrounds, shadows, gradients. */
+  *, *::before, *::after {
+    background: #fff !important; color: #000 !important;
+    box-shadow: none !important; text-shadow: none !important;
+  }
+  body { font-size: 11pt; line-height: 1.4; }
+
+  /* Drop interactive/decorative chrome that has no place on paper. */
+  nav.main, #nav-toggle, .wa-float, .hero p:last-child,
+  .btn, .gog-ui, .keeper-game, script { display: none !important; }
+
+  /* Keep the masthead, simply. */
+  header.site { border-bottom: 1px solid #000; }
+  .crest .shield { border: 1px solid #000; }
+
+  /* Bands/cards: flat, with hairline borders so structure survives. */
+  .band, .band.alt { padding: .6rem 0 !important; }
+  .card, blockquote, figure {
+    border: 1px solid #999 !important; border-radius: 0 !important;
+  }
+
+  /* Tables (schedule, trials, programs) print with visible grid. */
+  table { border-collapse: collapse !important; width: 100%; }
+  th, td { border: 1px solid #999 !important; padding: 4px 6px !important; }
+
+  /* Don't split a card/quote/table row across pages. */
+  .card, blockquote, tr, figure { page-break-inside: avoid; }
+  h1, h2, h3 { page-break-after: avoid; }
+
+  /* Show real URLs after content links so the printout is self-contained
+     (skip nav/footer/in-app anchors to avoid clutter). */
+  .wrap a[href^="http"]::after {
+    content: " (" attr(href) ")"; font-size: 9pt; color: #444 !important;
+    word-break: break-all;
+  }
+  a[href^="#"]::after, a[href^="mailto:"]::after { content: ""; }
+}
