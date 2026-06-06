@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/sitemap.xml
