@@ -5,15 +5,15 @@
 // ============================================================
 window.SITE = {
   // WhatsApp number, digits only, international format (no +)
-  waNumber: "2340000000000",            // TODO: real number (intake Q8)
-  phoneDisplay: "+234 000 000 0000",    // TODO: intake Q8/Q9
-  email: "hello@example.com",           // TODO: intake Q10
+  waNumber: "2347036190935",
+  phoneDisplay: "+234 703 619 0935",
+  email: "akindekotobi3@gmail.com",
   paystackUrl: "",                      // TODO: intake Q31 — payment page URL
-  instagram: "",                        // TODO: intake Q11 — full URL
-  facebook: "",                         // TODO: full URL
-  tiktok: "",                           // TODO: full URL
-  youtube: "",                          // TODO: full URL
-  mapsMain: "",                         // TODO: intake Q21 — Google Maps pin URL
+  instagram: "",                        // TODO: not yet provided
+  facebook: "",                         // TODO: not yet provided
+  tiktok: "https://www.tiktok.com/@ilerioluwa.goalke",
+  youtube: "https://www.youtube.com/@ilerigktrainingcenter",
+  mapsMain: "",                         // TODO: Google Maps pin URL pending
 };
 
 // ---- filler: applies SITE values to the page ----

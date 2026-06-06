@@ -1,24 +1,26 @@
-# Ilerioluwa Goalkeeper Training Institute
+# Ilerioluwa Goalkeeper Training Center
 
-Official website of the **Ilerioluwa Goalkeeper Training Institute** — a
-goalkeeper training academy in Nigeria developing the next generation of
+Official website of the **Ilerioluwa Goalkeeper Training Center** — a
+goalkeeper training academy in Ibadan, Nigeria developing the next generation of
 goalkeepers through structured coaching, discipline, and opportunity.
+*Guardian of Goal.*
 
-🌐 **Website:** https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/
+**Website:** https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/
 
 > **Status:** demonstration build — content marked `SAMPLE` is placeholder data
-> pending confirmation by the Institute.
+> pending confirmation by the Center.
 
-## About the Institute
+## About the Center
 
-The Institute provides specialist goalkeeper training — technique,
+The Center provides specialist goalkeeper training — technique,
 positioning, distribution, fitness, and the mental side of the position —
-for young players working toward club, academy, and professional
-opportunities.
+for young players (U15–18+) working toward club, academy, and professional
+opportunities. Boys and girls train together, 3 sessions per week, at
+Marvelous Pitch, Liberty Stadium, Ibadan, Oyo State, Nigeria.
 
 ## About this repository
 
-This repo contains the source for the Institute's public website:
+This repo contains the source for the Center's public website:
 
 - Lightweight, mobile-first static site (most visitors are on phones and
   mobile data)
@@ -45,6 +47,6 @@ this repository, open an issue.
 The website **source code** is available under the MIT License — see
 [LICENSE](LICENSE).
 
-The Institute's **name, logo, branding, photographs, and written content**
-are © 2026 Ilerioluwa Goalkeeper Training Institute, all rights reserved,
+The Center's **name, logo, branding, photographs, and written content**
+are © 2026 Ilerioluwa Goalkeeper Training Center, all rights reserved,
 and are **not** covered by the MIT License.
