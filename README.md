@@ -4,7 +4,10 @@ Official website of the **Ilerioluwa Goalkeeper Training Institute** — a
 goalkeeper training academy in Nigeria developing the next generation of
 goalkeepers through structured coaching, discipline, and opportunity.
 
-🌐 **Website:** _coming soon_ (will be served from this repository)
+🌐 **Website:** https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/
+
+> **Status:** demonstration build — content marked `SAMPLE` is placeholder data
+> pending confirmation by the Institute.
 
 ## About the Institute
 
@@ -22,8 +25,14 @@ This repo contains the source for the Institute's public website:
 - No build step required — plain HTML/CSS/JS, deployable via GitHub Pages
 
 ```
-index.html   Homepage (added as the site is built)
-assets/      Images, styles, scripts
+index.html      Home — free-trial CTA, success-story strip
+programs.html   Age-tiered programs, curriculum, fees, scholarships
+trials.html     Free-trial funnel, open trial days, FAQ, payment link
+coaches.html    Coaching staff + standards
+stories.html    Club placements, testimonials, highlight reels
+schedule.html   Weekly timetable + venues
+contact.html    WhatsApp-first contact + inquiry form
+assets/         Stylesheet (no frameworks) + minimal JS
 ```
 
 ## Contact
