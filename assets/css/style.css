@@ -1,0 +1,248 @@
+/* Ilerioluwa Goalkeeper Training Institute — mobile-first, low-bandwidth.
+   No frameworks, no webfonts. Target: sunlight-readable on a phone. */
+
+:root {
+  --green-900: #0f3d22;
+  --green-700: #166534;
+  --green-600: #1a7a3a;
+  --gold: #eab308;
+  --gold-dark: #b45309;
+  --ink: #1c1c1a;
+  --muted: #5b5b54;
+  --paper: #fafaf7;
+  --card: #ffffff;
+  --line: #e4e4dc;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 17px;
+}
+img { max-width: 100%; height: auto; }
+a { color: var(--green-700); }
+
+h1, h2, h3 { line-height: 1.2; font-weight: 800; }
+h1 { font-size: 2rem; margin: 0 0 .5rem; }
+h2 { font-size: 1.5rem; margin: 2.2rem 0 .8rem; color: var(--green-900); }
+h3 { font-size: 1.1rem; margin: 0 0 .4rem; }
+
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 1rem; }
+
+/* ---------- header / nav ---------- */
+header.site {
+  background: var(--green-900);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 3px solid var(--gold);
+}
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .6rem 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.crest {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 800;
+}
+.crest .shield {
+  background: var(--gold);
+  color: var(--green-900);
+  font-size: .8rem;
+  font-weight: 900;
+  padding: .35rem .45rem;
+  border-radius: 6px 6px 10px 10px;
+  letter-spacing: .5px;
+}
+.crest .name { font-size: .95rem; line-height: 1.15; }
+.crest .name small { display: block; font-weight: 600; color: #cfe6d6; font-size: .7rem; }
+
+#nav-toggle {
+  background: none;
+  border: 2px solid #ffffff55;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: .2rem .6rem;
+  border-radius: 6px;
+}
+nav.main ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 1rem .8rem;
+  display: none;
+  flex-direction: column;
+  gap: .15rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+nav.main.open ul { display: flex; }
+nav.main a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: .55rem .6rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+nav.main a:hover, nav.main a[aria-current="page"] { background: var(--green-700); color: var(--gold); }
+
+@media (min-width: 760px) {
+  #nav-toggle { display: none; }
+  nav.main ul { display: flex; flex-direction: row; padding: 0 1rem .6rem; }
+}
+
+/* ---------- hero ---------- */
+.hero {
+  background: linear-gradient(160deg, var(--green-900) 0%, var(--green-600) 70%, #2b9e52 100%);
+  color: #fff;
+  padding: 3rem 0 3.5rem;
+  text-align: left;
+}
+.hero .kicker { color: var(--gold); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; font-size: .8rem; }
+.hero h1 { font-size: 2.2rem; max-width: 22ch; }
+.hero p.lead { font-size: 1.1rem; max-width: 50ch; color: #e8f3ec; }
+@media (min-width: 760px) { .hero h1 { font-size: 2.8rem; } }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-block;
+  padding: .75rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 800;
+  margin: .3rem .4rem .3rem 0;
+}
+.btn-gold { background: var(--gold); color: var(--green-900); }
+.btn-gold:hover { background: #facc15; }
+.btn-outline { border: 2px solid #fff; color: #fff; }
+.btn-outline:hover { background: #ffffff22; }
+.btn-green { background: var(--green-700); color: #fff; }
+.btn-green:hover { background: var(--green-600); }
+
+/* ---------- sections / cards ---------- */
+section.band { padding: 1.2rem 0 2rem; }
+section.band.alt { background: #f1f4ee; }
+
+.grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .grid.cols-2 { grid-template-columns: 1fr 1fr; } .grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem;
+}
+.card .age { color: var(--gold-dark); font-weight: 800; font-size: .85rem; text-transform: uppercase; letter-spacing: .5px; }
+.card .price { font-size: 1.3rem; font-weight: 800; color: var(--green-900); margin: .4rem 0 0; }
+.card ul { padding-left: 1.1rem; margin: .5rem 0; }
+
+.avatar {
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  background: var(--green-700);
+  color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; font-weight: 900;
+  margin-bottom: .6rem;
+}
+
+/* sample-data badge — remove when real content lands */
+.sample {
+  display: inline-block;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: .68rem;
+  font-weight: 800;
+  padding: .1rem .45rem;
+  border-radius: 4px;
+  vertical-align: middle;
+  letter-spacing: .5px;
+}
+
+/* ---------- tables ---------- */
+table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; font-size: .95rem; }
+th, td { padding: .6rem .7rem; text-align: left; border-bottom: 1px solid var(--line); }
+th { background: var(--green-900); color: #fff; }
+tr:last-child td { border-bottom: none; }
+.table-scroll { overflow-x: auto; }
+
+/* ---------- stat strip ---------- */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; text-align: center; }
+.stats .n { font-size: 1.7rem; font-weight: 900; color: var(--green-700); display: block; }
+.stats .l { font-size: .8rem; color: var(--muted); }
+
+/* ---------- WhatsApp float ---------- */
+.wa-float {
+  position: fixed;
+  right: 1rem; bottom: 1rem;
+  background: #25d366;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  padding: .8rem 1.2rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+  z-index: 60;
+}
+.wa-float:hover { background: #1ebe5b; }
+
+/* ---------- footer ---------- */
+footer.site {
+  background: var(--green-900);
+  color: #cfe6d6;
+  margin-top: 3rem;
+  padding: 2rem 0 4.5rem; /* bottom space clears the WhatsApp float */
+  font-size: .9rem;
+}
+footer.site a { color: var(--gold); }
+footer.site .cols { display: grid; gap: 1.2rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { footer.site .cols { grid-template-columns: 2fr 1fr 1fr; } }
+footer.site ul { list-style: none; padding: 0; margin: .3rem 0; }
+footer.site li { margin: .25rem 0; }
+.fineprint { border-top: 1px solid #ffffff22; margin-top: 1.5rem; padding-top: 1rem; font-size: .78rem; color: #9fc4ab; }
+
+/* ---------- misc ---------- */
+.notice {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: var(--radius);
+  padding: .7rem 1rem;
+  font-size: .88rem;
+  color: #78350f;
+  margin: 1rem 0;
+}
+.steps { counter-reset: step; list-style: none; padding: 0; }
+.steps li { counter-increment: step; position: relative; padding: 0 0 1rem 3rem; }
+.steps li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 2.1rem; height: 2.1rem;
+  border-radius: 50%;
+  background: var(--green-700); color: var(--gold);
+  font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+}
+blockquote {
+  margin: 0;
+  padding: 1rem 1.2rem;
+  background: #fff;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-style: italic;
+}
+blockquote footer { font-style: normal; font-weight: 700; color: var(--green-900); margin-top: .5rem; }
