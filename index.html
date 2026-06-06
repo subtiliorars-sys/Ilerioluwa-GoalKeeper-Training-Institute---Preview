@@ -161,6 +161,31 @@
   </div>
 </section>
 
+<section class="band alt" id="game">
+  <div class="wrap">
+    <h2>Guardian of Goal — the game</h2>
+    <p>Think you have a keeper's reflexes? The shooter steps up, you guard the goal.
+    Tap <strong>LEFT</strong>, <strong>MIDDLE</strong> or <strong>RIGHT</strong>
+    (or use the arrow keys) to dive — every save makes the next shot faster.</p>
+    <div class="gog-frame">
+      <canvas id="gog" aria-label="Guardian of Goal — penalty save game. Tap left, middle or right to dive."></canvas>
+      <div class="gog-ui" id="gog-start">
+        <h3>Guardian of Goal</h3>
+        <p>Penalty after penalty. One mistake and it's full time. How long can you keep a clean sheet?</p>
+        <button class="btn btn-gold" id="gog-play">▶ Start</button>
+      </div>
+      <div class="gog-ui" id="gog-over" hidden>
+        <h3>Full time</h3>
+        <p id="gog-over-text"></p>
+        <button class="btn btn-gold" id="gog-again">Play again</button>
+        <a class="btn btn-green" id="gog-share" href="https://wa.me/" target="_blank" rel="noopener">Share your streak on WhatsApp</a>
+      </div>
+    </div>
+    <p class="gog-note">Good streak? Come prove it on the real pitch —
+    <a href="trials.html">your first session is FREE</a>.</p>
+  </div>
+</section>
+
 <footer class="site">
   <div class="wrap">
     <div class="cols">
@@ -197,5 +222,6 @@
 
 <script src="assets/js/config.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/keeper-game.js"></script>
 </body>
 </html>
