@@ -82,13 +82,19 @@ nav.main a {
   padding: .55rem .6rem; border-radius: 6px;
   font-weight: 700; font-size: .92rem;
   text-transform: uppercase; letter-spacing: .5px;
+  white-space: nowrap;
 }
 nav.main a:hover { color: var(--volt); background: var(--coal); }
 nav.main a[aria-current="page"] { color: var(--volt); box-shadow: inset 0 -3px 0 var(--volt); border-radius: 6px 6px 0 0; }
 
 @media (min-width: 800px) {
   #nav-toggle { display: none; }
-  nav.main ul { display: flex; flex-direction: row; padding: 0 1rem .55rem; }
+  nav.main ul {
+    display: flex; flex-direction: row; flex-wrap: nowrap;
+    justify-content: center; align-items: center; gap: .3rem;
+    padding: 0 1rem .55rem;
+    overflow-x: auto; /* never wraps — scrolls on narrow desktop instead */
+  }
 }
 
 /* ---------- hero: black kit + goal-net grid + giant 77 ---------- */
