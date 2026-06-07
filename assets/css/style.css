@@ -137,24 +137,14 @@ nav.main a[aria-current="page"] { color: var(--volt); box-shadow: inset 0 -3px 0
 .hero p.lead { font-size: 1.08rem; max-width: 52ch; color: #d7dbd0; }
 @media (min-width: 800px) { .hero h1 { font-size: 3.1rem; } }
 
-/* wordmark (homepage hero) — recreation of the volt logo lockup */
-.wordmark { margin: 0 0 .8rem; }
-.wordmark .script {
-  color: var(--volt); font-weight: 900; font-style: italic;
-  font-size: 1.25rem; letter-spacing: 2px; text-transform: uppercase;
-}
-.wordmark .big {
+/* wordmark (homepage hero) — the real volt logo lockup image */
+.wordmark-img {
   display: block;
-  font-size: clamp(2.6rem, 9vw, 4.6rem);
-  font-weight: 900; line-height: .95;
-  text-transform: uppercase; letter-spacing: -.5px;
-  color: #fff;
-}
-.wordmark .big .volt { color: var(--volt); }
-.wordmark .sub {
-  display: block; margin-top: .45rem;
-  color: var(--paper); font-weight: 700;
-  letter-spacing: .55em; text-transform: uppercase; font-size: .72rem;
+  width: 100%; max-width: 480px; height: auto;
+  margin: 0 0 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px #000a, 0 0 24px #c8f31d22;
 }
 
 /* ---------- buttons ---------- */
