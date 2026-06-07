@@ -292,12 +292,33 @@
   function pickZone(z) {
     if ((st === 'ready' || st === 'flight') && pick < 0) { pick = z; pickAt = performance.now(); }
   }
+  // canvas: tap a side OR swipe (left/right = dive, up = jump).
+  // Taps resolve on pointerup; swipes resolve the moment the finger moves 22px,
+  // so a swipe is never mis-read as a tap at its starting position.
+  var gs = null;
   cvs.addEventListener('pointerdown', function (e) {
     e.preventDefault();
-    var rect = cvs.getBoundingClientRect();
-    var x = (e.clientX - rect.left) * (W / rect.width);
-    pickZone(x < W / 3 ? 0 : x < 2 * W / 3 ? 1 : 2);
+    try { cvs.setPointerCapture(e.pointerId); } catch (err) {}
+    gs = { x: e.clientX, y: e.clientY, picked: false };
   });
+  cvs.addEventListener('pointermove', function (e) {
+    if (!gs || gs.picked) return;
+    var dx = e.clientX - gs.x, dy = e.clientY - gs.y;
+    if (Math.abs(dx) < 22 && Math.abs(dy) < 22) return;
+    gs.picked = true;
+    if (Math.abs(dy) > Math.abs(dx)) { if (dy < 0) pickZone(1); } // swipe up = jump middle
+    else pickZone(dx < 0 ? 0 : 2);                                // swipe left/right = dive
+  });
+  cvs.addEventListener('pointerup', function (e) {
+    if (!gs) return;
+    if (!gs.picked) {            // no movement = a tap; zone by position
+      var rect = cvs.getBoundingClientRect();
+      var x = (e.clientX - rect.left) * (W / rect.width);
+      pickZone(x < W / 3 ? 0 : x < 2 * W / 3 ? 1 : 2);
+    }
+    gs = null;
+  });
+  cvs.addEventListener('pointercancel', function () { gs = null; });
   document.addEventListener('keydown', function (e) {
     if (st !== 'ready' && st !== 'flight') return;
     if (e.key === 'ArrowLeft') pickZone(0);
