@@ -301,17 +301,24 @@
   // ---- full screen (native API, .gog-max CSS fallback where unsupported e.g. iOS) ----
   var frame = cvs.parentElement;
   var fsBtn = document.getElementById('gog-fs');
-  function fsActive() { return document.fullscreenElement === frame || frame.classList.contains('gog-max'); }
+  function fsEl() { return document.fullscreenElement || document.webkitFullscreenElement; }
+  function fsActive() { return fsEl() === frame || frame.classList.contains('gog-max'); }
   function fsGlyph() { fsBtn.textContent = fsActive() ? '✕' : '⛶'; fsBtn.title = fsActive() ? 'Exit full screen' : 'Full screen'; }
   if (fsBtn) {
     fsBtn.addEventListener('click', function () {
-      if (document.fullscreenElement === frame) { document.exitFullscreen(); return; }
+      if (fsEl() === frame) {
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+        return;
+      }
       if (frame.classList.contains('gog-max')) { frame.classList.remove('gog-max'); fsGlyph(); return; }
       if (frame.requestFullscreen) {
         frame.requestFullscreen().catch(function () { frame.classList.add('gog-max'); fsGlyph(); });
+      } else if (frame.webkitRequestFullscreen) { // older Safari
+        try { frame.webkitRequestFullscreen(); } catch (e) { frame.classList.add('gog-max'); fsGlyph(); }
       } else { frame.classList.add('gog-max'); fsGlyph(); }
     });
     document.addEventListener('fullscreenchange', fsGlyph);
+    document.addEventListener('webkitfullscreenchange', fsGlyph);
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && frame.classList.contains('gog-max')) { frame.classList.remove('gog-max'); fsGlyph(); }
     });
