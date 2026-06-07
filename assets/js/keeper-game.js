@@ -18,7 +18,8 @@
   var VOLT = '#c8f31d', TEAL = '#5eead4', PAPER = '#f4f5f0', MUTED = '#9aa093';
   var GOAL = { l: 55, r: 365, bar: 80, line: 264 };       // posts/crossbar/goal-line
   var ZONE_X = [108, 210, 312];                           // dive/shot targets L/M/R
-  var TARGET_Y = 178;                                     // ball height at goal
+  var TARGET_Y = 178;                                     // ball height at goal (corners)
+  var MID_Y = 122;                                        // middle shots fly HIGH — clear over the keeper unless he jumps
   var SPOT = { x: 210, y: 428 };                          // penalty spot
   var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -107,16 +108,20 @@
   }
 
   function drawKeeper() {
-    // dive offset/lean toward picked zone
-    var x = 210, lean = 0, reach = 0;
+    // dive offset/lean toward picked zone; middle = vertical JUMP
+    var x = 210, lean = 0, reach = 0, rise = 0;
     if (pick >= 0) {
       var q = easeOut(clamp01((now - pickAt) / 170));
-      x = lerp(210, ZONE_X[pick], q);
-      lean = (pick - 1) * 0.55 * q;
-      reach = q;
+      if (pick === 1) {
+        rise = q * 50; reach = q;          // leap straight up, gloves overhead
+      } else {
+        x = lerp(210, ZONE_X[pick], q);
+        lean = (pick - 1) * 0.55 * q;
+        reach = q;
+      }
     }
     ctx.save();
-    ctx.translate(x, GOAL.line - 6);
+    ctx.translate(x, GOAL.line - 6 - rise);
     ctx.rotate(lean);
     // legs
     ctx.strokeStyle = '#0b0c0a'; ctx.lineWidth = 9; ctx.lineCap = 'round';
@@ -128,8 +133,10 @@
     // varsity 77
     ctx.fillStyle = PAPER; ctx.font = '900 13px system-ui,sans-serif'; ctx.textAlign = 'center';
     ctx.fillText('77', 0, -32);
-    // arms + volt gloves
-    var armY = -52, gx = 22 + reach * 16, gy = armY - reach * 22;
+    // arms + volt gloves — jump raises them overhead, dive stretches them out
+    var armY = -52, gx, gy;
+    if (pick === 1) { gx = 12 + reach * 4; gy = armY - reach * 38; }
+    else { gx = 22 + reach * 16; gy = armY - reach * 22; }
     ctx.strokeStyle = '#101210'; ctx.lineWidth = 8;
     ctx.beginPath(); ctx.moveTo(-10, armY); ctx.lineTo(-gx, gy); ctx.moveTo(10, armY); ctx.lineTo(gx, gy); ctx.stroke();
     ctx.fillStyle = VOLT;
@@ -194,9 +201,10 @@
   // ---- ball flight path ----
   function ballPos(p) {
     var e = easeOut(p);
+    var ty = ballZone === 1 ? MID_Y : TARGET_Y;   // middle shots fly high for the whole flight
     return {
       x: lerp(SPOT.x, ZONE_X[ballZone], e),
-      y: lerp(SPOT.y, TARGET_Y, e) - Math.sin(p * Math.PI) * 26,
+      y: lerp(SPOT.y, ty, e) - Math.sin(p * Math.PI) * 26,
       r: lerp(13, 8, e)
     };
   }
@@ -266,16 +274,14 @@
       var q = clamp01((now - resolvedAt) / 400);
       drawKeeper(); drawStriker(1);
       ctx.globalAlpha = 1 - q * .7;
-      drawBall(ZONE_X[ballZone] + deflectDir * 90 * q, TARGET_Y - 60 * q + 80 * q * q, 8);
+      drawBall(ZONE_X[ballZone] + deflectDir * 90 * q, (ballZone === 1 ? MID_Y : TARGET_Y) - 60 * q + 80 * q * q, 8);
       ctx.globalAlpha = 1;
       if (!reduced) flash('SAVED!', VOLT);
       if (now >= savedUntil) nextRound();
     } else if (st === 'over') {
       var b2 = ballPos(1);
-      // a conceded middle ball must not paint on the standing keeper's head —
-      // he never jumped, so show it sailing OVER him, high in the net
-      var by = (ballZone === 1 && pick < 0) ? TARGET_Y - 64 : b2.y + 10;
-      drawKeeper(); drawStriker(1); drawBall(b2.x, by, 8);
+      // middle shots rest high in the net (ballPos already aims MID_Y) — never on the keeper
+      drawKeeper(); drawStriker(1); drawBall(b2.x, b2.y + 10, 8);
       flash('GOAL…', TEAL);
       cancelAnimationFrame(raf); raf = 0;
     }
