@@ -16,7 +16,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=2">
 </head>
 <body>
 
@@ -82,16 +82,17 @@
 <section class="band alt">
   <div class="wrap">
     <h2>Send an inquiry</h2>
-    <!-- mailto form: zero backend. TODO: swap to Formspree/Paystack-form when accounts exist -->
-    <form class="card" action="mailto:akindekotobi3@gmail.com" method="get" enctype="text/plain">
+    <!-- zero-backend form: submits via WhatsApp (see main.js); email is the fallback link -->
+    <form class="card" id="inquiry-form">
       <p><label>Your name<br><input name="name" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
       <p><label>Keeper's age group<br>
         <select name="age" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px">
           <option>U15–U17</option><option>18+</option>
         </select></label></p>
       <p><label>Message<br><textarea name="body" rows="4" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></textarea></label></p>
-      <button class="btn btn-green" type="submit">Send email</button>
-      <small>(Opens your email app — or message us directly on WhatsApp above.)</small>
+      <button class="btn btn-green" type="submit">💬 Send on WhatsApp</button>
+      <small>(Opens WhatsApp with your message ready to send — or
+      <a href="mailto:akindekotobi3@gmail.com">email us</a> instead.)</small>
     </form>
   </div>
 </section>
@@ -126,6 +127,6 @@
 
 <a class="wa-float" href="https://wa.me/2347036190935">💬 WhatsApp us</a>
 <script src="assets/js/config.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=2"></script>
 </body>
 </html>

@@ -17,3 +17,17 @@ document.getElementById('nav-toggle').addEventListener('click', function () {
   }, { threshold: 0.12 });
   els.forEach(function (e) { io.observe(e); });
 })();
+// Inquiry form → opens WhatsApp with the message pre-filled (no backend needed).
+(function () {
+  var f = document.getElementById('inquiry-form');
+  if (!f) return;
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = new FormData(f);
+    var num = (window.SITE && window.SITE.waNumber) || '2347036190935';
+    var msg = 'Hello! My name is ' + d.get('name') +
+      '. Keeper age group: ' + d.get('age') + '. ' + d.get('body');
+    window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(msg),
+      '_blank', 'noopener');
+  });
+})();
