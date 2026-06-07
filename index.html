@@ -34,7 +34,7 @@
   "address": { "@type": "PostalAddress", "addressLocality": "Ibadan", "addressRegion": "Oyo", "addressCountry": "NG" }
 }
 </script>
-<link rel="stylesheet" href="assets/css/style.css?v=2">
+<link rel="stylesheet" href="assets/css/style.css?v=3">
 </head>
 <body>
 
@@ -161,8 +161,9 @@
   <div class="wrap">
     <h2>Guardian of Goal — the game</h2>
     <p>Think you have a keeper's reflexes? The shooter steps up, you guard the goal.
-    Tap <strong>LEFT</strong>, <strong>MIDDLE</strong> or <strong>RIGHT</strong>
-    (or use the arrow keys) to dive — every save makes the next shot faster.</p>
+    Use the buttons under the goal — <strong>◀ dive left</strong>,
+    <strong>▲ jump middle</strong>, <strong>▶ dive right</strong> — or tap that side
+    of the goal directly (arrow keys work too). Every save makes the next shot faster.</p>
     <div class="gog-frame">
       <canvas id="gog" aria-label="Guardian of Goal — penalty save game. Tap left, middle or right to dive."></canvas>
       <div class="gog-ui" id="gog-start">
@@ -177,6 +178,11 @@
         <a class="btn btn-green" id="gog-share" href="https://wa.me/?text=I%20played%20Guardian%20of%20Goal%20at%20the%20Ilerioluwa%20Goalkeeper%20Training%20Center%20site!" target="_blank" rel="noopener">Share your streak on WhatsApp</a>
       </div>
       <button class="gog-fs" id="gog-fs" aria-label="Toggle full screen" title="Full screen">⛶</button>
+      <div class="gog-pads">
+        <button class="gog-pad" data-zone="0" aria-label="Dive left">◀</button>
+        <button class="gog-pad" data-zone="1" aria-label="Jump middle">▲</button>
+        <button class="gog-pad" data-zone="2" aria-label="Dive right">▶</button>
+      </div>
     </div>
     <p class="gog-note">Good streak? Come prove it on the real pitch —
     <a href="trials.html">your first session is FREE</a>.</p>
@@ -219,6 +225,6 @@
 
 <script src="assets/js/config.js"></script>
 <script src="assets/js/main.js?v=2"></script>
-<script src="assets/js/keeper-game.js?v=2"></script>
+<script src="assets/js/keeper-game.js?v=3"></script>
 </body>
 </html>

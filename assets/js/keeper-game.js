@@ -272,7 +272,10 @@
       if (now >= savedUntil) nextRound();
     } else if (st === 'over') {
       var b2 = ballPos(1);
-      drawKeeper(); drawStriker(1); drawBall(b2.x, b2.y + 10, 8);
+      // a conceded middle ball must not paint on the standing keeper's head —
+      // he never jumped, so show it sailing OVER him, high in the net
+      var by = (ballZone === 1 && pick < 0) ? TARGET_Y - 64 : b2.y + 10;
+      drawKeeper(); drawStriker(1); drawBall(b2.x, by, 8);
       flash('GOAL…', TEAL);
       cancelAnimationFrame(raf); raf = 0;
     }
@@ -292,8 +295,15 @@
   document.addEventListener('keydown', function (e) {
     if (st !== 'ready' && st !== 'flight') return;
     if (e.key === 'ArrowLeft') pickZone(0);
-    else if (e.key === 'ArrowDown') pickZone(1);
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') pickZone(1); // hint shows ▲ — accept both
     else if (e.key === 'ArrowRight') pickZone(2);
+  });
+  // on-screen pads — the visible controls on mobile (clickable on desktop too)
+  Array.prototype.forEach.call(document.querySelectorAll('.gog-pad'), function (b) {
+    b.addEventListener('pointerdown', function (e) {
+      e.preventDefault();
+      pickZone(+b.getAttribute('data-zone'));
+    });
   });
   document.getElementById('gog-play').addEventListener('click', startGame);
   document.getElementById('gog-again').addEventListener('click', startGame);

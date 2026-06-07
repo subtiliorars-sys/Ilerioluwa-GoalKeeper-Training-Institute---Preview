@@ -335,6 +335,19 @@ blockquote footer { font-style: normal; font-weight: 800; color: var(--volt); ma
   cursor: pointer;
 }
 .gog-fs:hover { border-color: var(--volt); }
+.gog-pads { display: flex; gap: .5rem; justify-content: center; margin-top: .6rem; }
+.gog-pad {
+  flex: 1; max-width: 132px;
+  font-size: 1.35rem; line-height: 1; padding: .65rem 0;
+  background: var(--card); color: var(--volt);
+  border: 2px solid var(--line); border-radius: 10px;
+  cursor: pointer; touch-action: none; user-select: none;
+}
+.gog-pad:active { background: var(--volt); color: var(--black); border-color: var(--volt); }
+/* in full-screen the pads ride inside the frame, above the bottom edge */
+.gog-frame:fullscreen .gog-pads { position: absolute; bottom: .8rem; left: 50%; transform: translateX(-50%); width: min(420px, 92vw); z-index: 3; }
+.gog-frame:-webkit-full-screen .gog-pads { position: absolute; bottom: .8rem; left: 50%; transform: translateX(-50%); width: min(420px, 92vw); z-index: 3; }
+.gog-frame.gog-max .gog-pads { position: absolute; bottom: .8rem; left: 50%; transform: translateX(-50%); width: min(420px, 92vw); z-index: 3; }
 .gog-frame canvas {
   display: block;
   width: 100%;
