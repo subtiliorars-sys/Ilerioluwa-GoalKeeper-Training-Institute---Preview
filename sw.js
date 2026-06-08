@@ -1,6 +1,9 @@
 // Ilerioluwa GK — service worker.
 // HTML: network-first (always fresh content when online, cached fallback offline).
 // Assets (css/js/img): cache-first (instant on mobile data; versioned URLs bust stale).
+// PUBLISH CHECKLIST: when bumping any ?v=, update PRECACHE to match; when editing an
+// UNVERSIONED asset (config.js, logo, favicon, manifest), bump the CACHE name too —
+// PWA visitors otherwise keep the old copy forever.
 var CACHE = 'igtc-v1';
 var PRECACHE = [
   './index.html', './programs.html', './trials.html', './coaches.html',
@@ -24,12 +27,14 @@ self.addEventListener('activate', function (e) {
 self.addEventListener('fetch', function (e) {
   var req = e.request;
   if (req.method !== 'GET') return;
+  var url = new URL(req.url);
+  if (url.origin !== location.origin) return;                       // never cache cross-origin (analytics, embeds)
+  if (url.pathname.indexOf('/assets/img/gallery/') !== -1) return;  // gallery = network-only: photo TAKEDOWNS must propagate (48h promise)
   var isHTML = req.mode === 'navigate' || (req.headers.get('accept') || '').indexOf('text/html') !== -1;
   if (isHTML) {
     // network-first
     e.respondWith(fetch(req).then(function (res) {
-      var copy = res.clone();
-      caches.open(CACHE).then(function (c) { c.put(req, copy); });
+      if (res.ok) { var copy = res.clone(); caches.open(CACHE).then(function (c) { c.put(req, copy); }); }
       return res;
     }).catch(function () {
       return caches.match(req).then(function (hit) { return hit || caches.match('./index.html'); });
@@ -38,8 +43,7 @@ self.addEventListener('fetch', function (e) {
     // cache-first
     e.respondWith(caches.match(req).then(function (hit) {
       return hit || fetch(req).then(function (res) {
-        var copy = res.clone();
-        caches.open(CACHE).then(function (c) { c.put(req, copy); });
+        if (res.ok) { var copy = res.clone(); caches.open(CACHE).then(function (c) { c.put(req, copy); }); }
         return res;
       });
     }));
