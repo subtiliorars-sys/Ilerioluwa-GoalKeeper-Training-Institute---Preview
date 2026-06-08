@@ -22,6 +22,7 @@ window.SITE = {
 
   // Rewrite every wa.me link to the configured number, keeping ?text= prefills.
   document.querySelectorAll('a[href*="wa.me"]').forEach(function (a) {
+    if (!/wa\.me\/\d/.test(a.href)) return; // number-less share links (e.g. invite-a-friend) stay as-is
     var q = a.href.split('?')[1];
     a.href = 'https://wa.me/' + S.waNumber + (q ? '?' + q : '');
   });

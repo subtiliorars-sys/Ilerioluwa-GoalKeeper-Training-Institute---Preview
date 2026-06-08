@@ -19,10 +19,15 @@ pages = sorted(glob.glob('*.html'))
 
 for p in pages:
     raw = open(p).read()
-    html.parser.HTMLParser().feed(raw)                       # parses
+    html.parser.HTMLParser().feed(raw)                       # lenient — catches only gross breakage, not validity
     src = re.sub(r'<!--.*?-->', '', raw, flags=re.S)         # ignore comments
-    for m in re.finditer(r'<script type="application/ld\+json">(.*?)</script>', src, re.S):
+    for m in re.finditer(r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', src, re.S):
         json.loads(m.group(1))                               # JSON-LD valid
+    # fragment links must point at real ids ON that page (catches dead skip-links)
+    ids = set(re.findall(r'id="([^"]+)"', src))
+    for m in re.finditer(r'href="#([^"]+)"', src):
+        if m.group(1) not in ids:
+            errs.append(f'{p}: dead fragment href #{m.group(1)}')
     for m in re.finditer(r'(?:href|src)="([^"#]+?)(?:\?[^"]*)?(?:#[^"]*)?"', src):
         u = m.group(1)
         if u.startswith(('http', 'mailto:', 'tel:', 'data:')) or u == 'paystackUrl':
