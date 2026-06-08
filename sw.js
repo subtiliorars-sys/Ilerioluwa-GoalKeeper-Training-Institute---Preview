@@ -10,7 +10,7 @@ var PRECACHE = [
   './stories.html', './schedule.html', './gallery.html', './faq.html',
   './contact.html', './drills.html', './safeguarding.html', './404.html',
   './assets/css/style.css?v=4', './assets/js/config.js',
-  './assets/js/main.js?v=3', './assets/js/keeper-game.js?v=6',
+  './assets/js/main.js?v=4', './assets/js/keeper-game.js?v=6',
   './assets/img/logo-lockup.jpg', './assets/img/favicon.svg'
 ];
 

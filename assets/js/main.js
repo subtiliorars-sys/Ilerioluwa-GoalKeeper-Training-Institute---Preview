@@ -40,9 +40,11 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(function () {});
   });
 }
-// Analytics: GoatCounter (privacy-light, no cookies). INERT until the owner creates
-// the free account at goatcounter.com — then set the code below and uncomment.
-// var GC = 'ilerioluwa'; // <- account code
-// var s = document.createElement('script'); s.async = true;
-// s.src = '//gc.zgo.at/count.js'; s.setAttribute('data-goatcounter', 'https://' + GC + '.goatcounter.com/count');
-// document.head.appendChild(s);
+// Analytics: GoatCounter (privacy-light, no cookies). Dashboard: ilerioluwa.goatcounter.com
+(function () {
+  var GC = 'ilerioluwa';
+  var s = document.createElement('script'); s.async = true;
+  s.src = '//gc.zgo.at/count.js';
+  s.setAttribute('data-goatcounter', 'https://' + GC + '.goatcounter.com/count');
+  document.head.appendChild(s);
+})();
