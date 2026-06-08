@@ -4,13 +4,14 @@
 // PUBLISH CHECKLIST: when bumping any ?v=, update PRECACHE to match; when editing an
 // UNVERSIONED asset (config.js, logo, favicon, manifest), bump the CACHE name too —
 // PWA visitors otherwise keep the old copy forever.
-var CACHE = 'igtc-v1';
+var CACHE = 'igtc-v2';
 var PRECACHE = [
   './index.html', './programs.html', './trials.html', './coaches.html',
   './stories.html', './schedule.html', './gallery.html', './faq.html',
   './contact.html', './drills.html', './safeguarding.html', './404.html',
-  './assets/css/style.css?v=4', './assets/js/config.js',
-  './assets/js/main.js?v=4', './assets/js/keeper-game.js?v=6',
+  './glossary.html', './news.html', './offline.html',
+  './assets/css/style.css?v=5', './assets/js/config.js',
+  './assets/js/main.js?v=5', './assets/js/keeper-game.js?v=6',
   './assets/img/logo-lockup.jpg', './assets/img/favicon.svg'
 ];
 
@@ -37,7 +38,7 @@ self.addEventListener('fetch', function (e) {
       if (res.ok) { var copy = res.clone(); caches.open(CACHE).then(function (c) { c.put(req, copy); }); }
       return res;
     }).catch(function () {
-      return caches.match(req).then(function (hit) { return hit || caches.match('./index.html'); });
+      return caches.match(req).then(function (hit) { return hit || caches.match('./offline.html'); });
     }));
   } else {
     // cache-first

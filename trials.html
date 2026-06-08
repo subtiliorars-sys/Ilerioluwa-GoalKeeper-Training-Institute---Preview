@@ -14,13 +14,14 @@
 <meta property="og:title" content="Trials &amp; Registration — Ilerioluwa Goalkeeper Training Center">
 <meta property="og:description" content="Book a free trial session at Ilerioluwa Goalkeeper Training Center in Ibadan. Ages U15–18+. Your first session is always free.">
 <meta property="og:url" content="https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/trials.html">
-<meta property="og:image" content="https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/assets/img/og-card.jpg">
+<meta property="og:image" content="https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/assets/img/og/trials.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/css/style.css?v=4">
+<link rel="stylesheet" href="assets/css/style.css?v=5">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site">
   <div class="nav-bar">
@@ -45,7 +46,7 @@
   </nav>
 </header>
 
-<div class="hero">
+<div class="hero" id="main">
   <div class="wrap">
     <p class="kicker">Trials &amp; Registration</p>
     <h1>Your first session is free</h1>
@@ -61,14 +62,16 @@
     <ol class="steps">
       <li><strong>Message us on WhatsApp</strong> with the keeper's name, age, and
       preferred location. We confirm your free trial slot.</li>
-      <li><strong>Attend the free session.</strong> Bring boots, gloves if you have
-      them (we have loan pairs), water, and shin pads.</li>
+      <li><strong>Attend the free session.</strong> Bring water and shin pads —
+      and message us about boots and gloves before you come, we'll tell you exactly
+      what's needed.</li>
       <li><strong>Get an honest assessment.</strong> The coach recommends a program
       tier and discusses goals with the parent/guardian.</li>
       <li><strong>Register and pay securely online.</strong> Complete the short
       registration and pay the first month via our secure payment link.</li>
     </ol>
     <!-- TODO: real Paystack payment page link -->
+    <!-- booking form inserted below "How it works" — see section id="book" -->
     <p>
       <a class="btn btn-green" href="#" data-fill-href="paystackUrl" aria-disabled="true">Pay securely with Paystack</a>
       <span class="sample">SAMPLE — link pending</span>
@@ -76,7 +79,26 @@
   </div>
 </section>
 
-<section class="band alt">
+<section class="band alt" id="book">
+  <div class="wrap">
+    <h2>Book the free trial now</h2>
+    <p>Fill this in and it opens WhatsApp with your booking message ready to send —
+    nothing is stored on the website.</p>
+    <form class="card" id="trial-form">
+      <p><label>Keeper's first name<br><input name="keeper" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
+      <p><label>Age group<br>
+        <select name="age" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px">
+          <option>U15–U17</option><option>18+</option>
+        </select></label></p>
+      <p><label>When is best to contact you?<br><input name="when" placeholder="e.g. evenings, weekends" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
+      <button class="btn btn-gold" type="submit">🧤 Book my FREE session on WhatsApp</button>
+    </form>
+    <p style="margin-top:1rem">Know another keeper?
+      <a class="btn btn-green" href="https://wa.me/?text=Come%20try%20FREE%20goalkeeper%20training%20with%20me%20in%20Ibadan%20%E2%80%94%20first%20session%20costs%20nothing.%20%F0%9F%A7%A4%20https%3A%2F%2Fsubtiliorars-sys.github.io%2FIlerioluwa-GoalKeeper-Training-Institute---Preview%2Ftrials.html" target="_blank" rel="noopener">🤝 Invite a friend</a></p>
+  </div>
+</section>
+
+<section class="band">
   <div class="wrap">
     <h2>Open trial days</h2>
     <p>Beyond free trials, we hold <strong>open trial days</strong> each intake —
@@ -160,6 +182,6 @@
 
 <a class="wa-float" href="https://wa.me/2347036190935">💬 WhatsApp us</a>
 <script src="assets/js/config.js"></script>
-<script src="assets/js/main.js?v=4"></script>
+<script src="assets/js/main.js?v=5"></script>
 </body>
 </html>

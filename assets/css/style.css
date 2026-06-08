@@ -391,3 +391,18 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus { outline: 2px solid var(--volt); border-color: var(--volt); }
 button.btn { border: none; cursor: pointer; font: inherit; }
 .gog-mute { left: .5rem; right: auto; }
+/* a11y: skip link + visible keyboard focus + reduced motion */
+.skip-link {
+  position: absolute; left: -999px; top: 0; z-index: 100;
+  background: var(--volt); color: var(--black);
+  padding: .6rem 1rem; font-weight: 900; border-radius: 0 0 8px 0;
+}
+.skip-link:focus { left: 0; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--volt); outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .card { transition: none; }
+  .btn:hover, .card:hover { transform: none; }
+}

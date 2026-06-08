@@ -23,19 +23,46 @@ Marvelous Pitch, Liberty Stadium, Ibadan, Oyo State, Nigeria.
 This repo contains the source for the Center's public website:
 
 - Lightweight, mobile-first static site (most visitors are on phones and
-  mobile data)
+  mobile data) — every page well under 200KB
 - No build step required — plain HTML/CSS/JS, deployable via GitHub Pages
+- Installable PWA with offline support (`manifest.json` + `sw.js`)
+- Includes **Guardian of Goal**, an original canvas penalty-save mini-game
 
 ```
-index.html      Home — free-trial CTA, success-story strip
-programs.html   Age-tiered programs, curriculum, fees, scholarships
-trials.html     Free-trial funnel, open trial days, FAQ, payment link
-coaches.html    Coaching staff + standards
-stories.html    Club placements, testimonials, highlight reels
-schedule.html   Weekly timetable + venues
-contact.html    WhatsApp-first contact + inquiry form
-assets/         Stylesheet (no frameworks) + minimal JS
+index.html         Home — free-trial CTA, the game, news teaser
+programs.html      Program tiers, curriculum, scholarships, 1-on-1
+trials.html        Free-trial funnel + booking form (WhatsApp-first)
+coaches.html       Coaching staff + standards
+stories.html       Success stories (real, permission-gated)
+schedule.html      Weekly timetable + venue
+gallery.html       Photo gallery (consent-gated)
+faq.html           Parents' questions
+drills.html        Free train-at-home goalkeeper drills
+glossary.html      "Speak Keeper" — goalkeeper terms
+news.html          Announcements + articles
+safeguarding.html  Child-safety & photo policy (public commitment)
+flyer.html         Print-ready A5 flyer with WhatsApp QR
+404.html /offline.html   Branded error + offline pages
+assets/            Stylesheet (no frameworks) + minimal JS + images
 ```
+
+### Working on it
+
+- `main` **is the live site** (GitHub Pages) — work on a branch; merging to
+  main publishes.
+- Run `./check.sh` before any push to main: validates HTML, links, structured
+  data, nav consistency, and that the service-worker precache matches the
+  asset versions the pages reference.
+- Cache discipline: bumping any `?v=` requires updating the matching
+  `PRECACHE` entry in `sw.js`; editing an *unversioned* asset requires
+  rotating the `CACHE` name.
+
+### Content rules (non-negotiable)
+
+- No invented testimonials, placements, fees, or dates — unknowns say
+  "contact us on WhatsApp."
+- No photo in which a child is identifiable without written parental
+  permission — see the site's safeguarding page for the public policy.
 
 ## Contact
 

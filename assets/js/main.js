@@ -34,6 +34,20 @@ if (_nt) _nt.addEventListener('click', function () {
   });
 })();
 
+// Trial booking form -> WhatsApp prefill (no backend, nothing stored).
+(function () {
+  var f = document.getElementById('trial-form');
+  if (!f) return;
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = new FormData(f);
+    var num = (window.SITE && window.SITE.waNumber) || '2347036190935';
+    var msg = 'Hello! I want to book the FREE trial session. Keeper: ' + d.get('keeper') +
+      '. Age group: ' + d.get('age') + '.' +
+      (d.get('when') ? ' Best time to contact: ' + d.get('when') + '.' : '');
+    window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+  });
+})();
 // PWA: offline cache + add-to-home-screen (sw.js).
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
