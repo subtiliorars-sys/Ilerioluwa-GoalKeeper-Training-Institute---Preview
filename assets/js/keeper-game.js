@@ -40,11 +40,13 @@
 
   // ---- tiny synth sfx (no audio files) ----
   var AC = null;
+  var muted = false;
+  try { muted = localStorage.getItem('gog-muted') === '1'; } catch (e) {}
   function audioInit() {
     if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
   }
   function sfx(kind) {
-    if (!AC) return;
+    if (!AC || muted) return;
     try {
       var t = AC.currentTime, o = AC.createOscillator(), g = AC.createGain();
       o.connect(g); g.connect(AC.destination);
@@ -263,6 +265,7 @@
     if (st === 'ready') {
       var rp = clamp01(1 - (kickAt - now) / 600);
       drawKeeper(); drawStriker(rp); drawBall(SPOT.x, SPOT.y, 13); drawZoneHints();
+      if (streak === 0 && kickAt - now > 250) flash('GET READY', PAPER); // first penalty of a run
       if (now >= kickAt) { st = 'flight'; sfx('kick'); }
     } else if (st === 'flight') {
       var p = clamp01((now - kickAt) / dur);
@@ -333,6 +336,16 @@
     });
   });
   document.getElementById('gog-play').addEventListener('click', startGame);
+  var muteBtn = document.getElementById('gog-mute');
+  function muteGlyph() { if (muteBtn) muteBtn.textContent = muted ? '\uD83D\uDD07' : '\uD83D\uDD0A'; }
+  if (muteBtn) {
+    muteBtn.addEventListener('click', function () {
+      muted = !muted;
+      try { localStorage.setItem('gog-muted', muted ? '1' : '0'); } catch (e) {}
+      muteGlyph();
+    });
+    muteGlyph();
+  }
   document.getElementById('gog-again').addEventListener('click', startGame);
 
   // ---- full screen (native API, .gog-max CSS fallback where unsupported e.g. iOS) ----

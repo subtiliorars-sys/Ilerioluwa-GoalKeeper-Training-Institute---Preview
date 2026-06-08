@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Printable Flyer — Ilerioluwa Goalkeeper Training Center</title>
+<meta name="description" content="Print-ready flyer for the Ilerioluwa Goalkeeper Training Center, Ibadan.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b0c0a">
+<link rel="stylesheet" href="assets/css/style.css?v=4">
+<style>
+/* screen preview */
+.flyer {
+  background: #0b0c0a; color: #f4f5f0;
+  max-width: 148mm; margin: 1.5rem auto; padding: 10mm 9mm;
+  border: 1px solid var(--line); border-radius: 8px;
+  text-align: center;
+}
+.flyer img.lockup { width: 100%; max-width: 110mm; border-radius: 6px; }
+.flyer h1 { font-size: 1.5rem; margin: .6rem 0 .2rem; color: #fff; }
+.flyer .volt { color: #c8f31d; }
+.flyer .big-free {
+  font-size: 1.9rem; font-weight: 900; color: #0b0c0a; background: #c8f31d;
+  display: inline-block; padding: .25rem 1rem; border-radius: 8px; margin: .5rem 0;
+}
+.flyer ul { list-style: none; padding: 0; margin: .6rem 0; font-weight: 700; line-height: 1.9; }
+.flyer .qr { width: 38mm; height: 38mm; background: #fff; padding: 2mm; border-radius: 6px; }
+.flyer .wa { font-size: 1.15rem; font-weight: 900; color: #c8f31d; margin: .3rem 0 0; }
+.flyer .small { color: #9aa093; font-size: .8rem; }
+.print-bar { text-align: center; margin: 1rem; }
+@media print {
+  header.site, footer.site, .wa-float, .print-bar { display: none !important; }
+  body { background: #fff; }
+  .flyer { border: none; border-radius: 0; margin: 0 auto; max-width: none; width: 100%; min-height: 95vh; }
+  @page { size: A5 portrait; margin: 6mm; }
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-bar">
+    <a class="crest" href="index.html">
+      <span class="shield">IGTC</span>
+      <span class="name">Ilerioluwa<small>Goalkeeper Training Center</small></span>
+    </a>
+    <button id="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<div class="print-bar">
+  <button class="btn btn-gold" onclick="window.print()">🖨️ Print this flyer (A5)</button>
+  <p class="small" style="color:var(--muted)">Print on A5 (or A4 with two per page). Hand out at the pitch, schools, and shops.</p>
+</div>
+
+<div class="flyer">
+  <img class="lockup" src="assets/img/logo-lockup.jpg" alt="Ilerioluwa Goalkeeper Training Center — Guardian of Goal">
+  <h1>Goalkeepers aren't born.<br><span class="volt">They're trained.</span></h1>
+  <p>Specialist goalkeeper-only coaching · Ibadan</p>
+  <div class="big-free">FIRST SESSION FREE</div>
+  <ul>
+    <li>🧤 Ages U15 – 18+ · boys &amp; girls train together</li>
+    <li>📅 3 sessions every week</li>
+    <li>📍 Liberty Stadium, Ibadan</li>
+    <li>🎓 Scholarship places available — ask us</li>
+  </ul>
+  <img class="qr" src="assets/img/wa-qr.png" alt="QR code — scan to message us on WhatsApp">
+  <p class="wa">📲 Scan to WhatsApp us — or call +234 703 619 0935</p>
+  <p class="small">ilerioluwa goalkeeper training center · "Guardian of Goal"<br>
+  TikTok @ilerioluwa.goalke · YouTube @ilerigktrainingcenter</p>
+</div>
+
+<a class="wa-float" href="https://wa.me/2347036190935">💬 WhatsApp us</a>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/main.js?v=3"></script>
+</body>
+</html>

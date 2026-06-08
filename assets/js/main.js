@@ -1,6 +1,8 @@
 // Minimal JS: nav toggle, current-page highlight, scroll-reveal. No dependencies.
-document.getElementById('nav-toggle').addEventListener('click', function () {
-  document.querySelector('nav.main').classList.toggle('open');
+var _nt = document.getElementById('nav-toggle');
+if (_nt) _nt.addEventListener('click', function () {
+  var n = document.querySelector('nav.main');
+  if (n) n.classList.toggle('open');
 });
 (function () {
   var here = location.pathname.split('/').pop() || 'index.html';
@@ -31,3 +33,16 @@ document.getElementById('nav-toggle').addEventListener('click', function () {
       '_blank', 'noopener');
   });
 })();
+
+// PWA: offline cache + add-to-home-screen (sw.js).
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
+// Analytics: GoatCounter (privacy-light, no cookies). INERT until the owner creates
+// the free account at goatcounter.com — then set the code below and uncomment.
+// var GC = 'ilerioluwa'; // <- account code
+// var s = document.createElement('script'); s.async = true;
+// s.src = '//gc.zgo.at/count.js'; s.setAttribute('data-goatcounter', 'https://' + GC + '.goatcounter.com/count');
+// document.head.appendChild(s);

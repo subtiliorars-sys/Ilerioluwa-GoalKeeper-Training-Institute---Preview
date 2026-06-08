@@ -390,3 +390,4 @@ input, select, textarea {
 }
 input:focus, select:focus, textarea:focus { outline: 2px solid var(--volt); border-color: var(--volt); }
 button.btn { border: none; cursor: pointer; font: inherit; }
+.gog-mute { left: .5rem; right: auto; }
