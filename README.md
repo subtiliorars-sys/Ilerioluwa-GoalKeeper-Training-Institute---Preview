@@ -77,3 +77,6 @@ The website **source code** is available under the MIT License — see
 The Center's **name, logo, branding, photographs, and written content**
 are © 2026 Ilerioluwa Goalkeeper Training Center, all rights reserved,
 and are **not** covered by the MIT License.
+
+
+<!-- Force redeploy -->
