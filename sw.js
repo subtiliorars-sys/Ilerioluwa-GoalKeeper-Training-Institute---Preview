@@ -4,12 +4,12 @@
 // PUBLISH CHECKLIST: when bumping any ?v=, update PRECACHE to match; when editing an
 // UNVERSIONED asset (config.js, logo, favicon, manifest), bump the CACHE name too —
 // PWA visitors otherwise keep the old copy forever.
-var CACHE = 'igtc-v3';
+var CACHE = 'igtc-v4';
 var PRECACHE = [
   './', './index.html', './programs.html', './trials.html', './coaches.html',
   './stories.html', './schedule.html', './gallery.html', './faq.html',
   './contact.html', './drills.html', './safeguarding.html', './404.html',
-  './glossary.html', './news.html', './offline.html',
+  './glossary.html', './news.html', './offline.html', './admin.html',
   './assets/css/style.css?v=5', './assets/js/config.js',
   './assets/js/main.js?v=5', './assets/js/keeper-game.js?v=6',
   './assets/img/logo-lockup.jpg', './assets/img/favicon.svg'
