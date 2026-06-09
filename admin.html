@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Ilerioluwa Goalkeeper Training Center</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<meta name="theme-color" content="#0b0c0a">
+<link rel="stylesheet" href="assets/css/style.css?v=5">
+<style>
+  .admin-panel { max-width: 500px; margin: 2rem auto; }
+  .hidden { display: none !important; }
+  .status { margin-top: 1rem; padding: 1rem; border-radius: var(--radius); display: none; }
+  .status.error { background: #fee2e2; color: #991b1b; display: block; }
+  .status.success { background: #dcfce7; color: #166534; display: block; }
+  progress { width: 100%; height: 8px; border-radius: 4px; appearance: none; }
+  progress::-webkit-progress-bar { background: var(--line); border-radius: 4px; }
+  progress::-webkit-progress-value { background: var(--volt); border-radius: 4px; }
+  .preview-img { width: 100%; border-radius: var(--radius); margin-bottom: 1rem; border: 1px solid var(--line); display: none; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-bar">
+    <a class="crest" href="index.html">
+      <span class="shield">IGTC</span>
+      <span class="name">Ilerioluwa<small>Goalkeeper Training Center</small></span>
+    </a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>Coach Portal</h1>
+    <p class="lead">Securely upload photos to the public gallery.</p>
+  </div>
+</div>
+
+<section class="band">
+  <div class="wrap">
+    
+    <!-- LOGIN SECTION -->
+    <div id="login-section" class="admin-panel card">
+      <h2>Coach Login</h2>
+      <form id="login-form">
+        <p><label>Email<br><input type="email" id="login-email" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--black);color:#fff"></label></p>
+        <p><label>Password<br><input type="password" id="login-password" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--black);color:#fff"></label></p>
+        <button class="btn btn-green" type="submit">Login</button>
+        <div id="login-status" class="status error"></div>
+      </form>
+    </div>
+
+    <!-- UPLOAD SECTION (HIDDEN BY DEFAULT) -->
+    <div id="upload-section" class="admin-panel card hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+        <h2 style="margin:0">Upload Photo</h2>
+        <button id="logout-btn" style="background:none;border:none;color:var(--muted);cursor:pointer;text-decoration:underline">Logout</button>
+      </div>
+      
+      <form id="upload-form">
+        <img id="image-preview" class="preview-img">
+        <p><label>Select Photograph<br><input type="file" id="photo-file" accept="image/*" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
+        <p><label>Caption / Location<br><input type="text" id="photo-caption" placeholder="e.g. Training day — Liberty Stadium" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--black);color:#fff"></label></p>
+        
+        <div id="upload-progress-container" class="hidden">
+          <p>Uploading... <span id="progress-percent">0%</span></p>
+          <progress id="upload-progress" value="0" max="100"></progress>
+        </div>
+
+        <button class="btn btn-green" type="submit" id="upload-btn" style="margin-top:1rem">Upload to Gallery</button>
+        <div id="upload-status" class="status"></div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- Firebase SDKs (Compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+
+<script>
+  // Configuration provided by user
+  const firebaseConfig = {
+    apiKey: "AIzaSyD-FO_roZw-j-YuIosdWq50iSdWWTcDTHk",
+    authDomain: "ilerioluwa-goal-keeper-train.firebaseapp.com",
+    projectId: "ilerioluwa-goal-keeper-train",
+    storageBucket: "ilerioluwa-goal-keeper-train.firebasestorage.app",
+    messagingSenderId: "775078500172",
+    appId: "1:775078500172:web:9b701ad7832b7f056c21e9",
+    measurementId: "G-NPQXK9BLML"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+
+  // Elements
+  const loginSection = document.getElementById('login-section');
+  const uploadSection = document.getElementById('upload-section');
+  const loginForm = document.getElementById('login-form');
+  const uploadForm = document.getElementById('upload-form');
+  const loginStatus = document.getElementById('login-status');
+  const uploadStatus = document.getElementById('upload-status');
+  const logoutBtn = document.getElementById('logout-btn');
+  const photoFile = document.getElementById('photo-file');
+  const imagePreview = document.getElementById('image-preview');
+  const uploadBtn = document.getElementById('upload-btn');
+  const progressContainer = document.getElementById('upload-progress-container');
+  const progressBar = document.getElementById('upload-progress');
+  const progressPercent = document.getElementById('progress-percent');
+
+  // Auth State Listener
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      loginSection.classList.add('hidden');
+      uploadSection.classList.remove('hidden');
+    } else {
+      loginSection.classList.remove('hidden');
+      uploadSection.classList.add('hidden');
+    }
+  });
+
+  // Login
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const pass = document.getElementById('login-password').value;
+    loginStatus.classList.remove('error');
+    loginStatus.textContent = '';
+
+    auth.signInWithEmailAndPassword(email, pass).catch(err => {
+      loginStatus.textContent = err.message;
+      loginStatus.classList.add('error');
+    });
+  });
+
+  // Logout
+  logoutBtn.addEventListener('click', () => auth.signOut());
+
+  // Image Preview
+  photoFile.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        imagePreview.src = e.target.result;
+        imagePreview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Upload
+  uploadForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const file = photoFile.files[0];
+    const caption = document.getElementById('photo-caption').value;
+
+    if (!file) return;
+
+    uploadBtn.disabled = true;
+    progressContainer.classList.remove('hidden');
+    uploadStatus.className = 'status';
+    uploadStatus.textContent = '';
+
+    // Create a unique filename
+    const filename = Date.now() + '_' + file.name;
+    const storageRef = storage.ref('photos/' + filename);
+    const uploadTask = storageRef.put(file);
+
+    uploadTask.on('state_changed', 
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        progressBar.value = progress;
+        progressPercent.textContent = Math.round(progress) + '%';
+      }, 
+      (error) => {
+        uploadBtn.disabled = false;
+        uploadStatus.textContent = 'Upload failed: ' + error.message;
+        uploadStatus.classList.add('error');
+      }, 
+      () => {
+        // Upload successful, get URL and save to Firestore
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          return db.collection('photos').add({
+            url: downloadURL,
+            caption: caption,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            filename: filename
+          });
+        }).then(() => {
+          uploadBtn.disabled = false;
+          progressContainer.classList.add('hidden');
+          uploadStatus.textContent = 'Photo uploaded successfully!';
+          uploadStatus.classList.add('success');
+          uploadForm.reset();
+          imagePreview.style.display = 'none';
+        }).catch(err => {
+          uploadBtn.disabled = false;
+          uploadStatus.textContent = 'Failed to save metadata: ' + err.message;
+          uploadStatus.classList.add('error');
+        });
+      }
+    );
+  });
+</script>
+
+<footer class="site band alt">
+  <div class="wrap">
+    <p>&copy; 2026 Ilerioluwa Goalkeeper Training Center. Admin Portal.</p>
+  </div>
+</footer>
+
+</body>
+</html>
