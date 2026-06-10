@@ -46,8 +46,25 @@
       <form id="login-form">
         <p><label>Email<br><input type="email" id="login-email" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--black);color:#fff"></label></p>
         <p><label>Password<br><input type="password" id="login-password" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--black);color:#fff"></label></p>
-        <button class="btn btn-green" type="submit">Login</button>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1rem">
+          <button class="btn btn-green" type="submit">Login</button>
+          <a href="#" id="forgot-password-link" style="color:var(--volt);font-size:0.9rem;text-decoration:underline">Forgot Password?</a>
+        </div>
         <div id="login-status" class="status error"></div>
+      </form>
+    </div>
+
+    <!-- FORGOT PASSWORD SECTION (HIDDEN BY DEFAULT) -->
+    <div id="forgot-password-section" class="admin-panel card hidden">
+      <h2>Reset Password</h2>
+      <p style="color:var(--muted);font-size:0.95rem;margin-bottom:1.5rem">Enter your account email below, and we will send you a secure link to reset your password.</p>
+      <form id="forgot-password-form">
+        <p><label>Email<br><input type="email" id="reset-email" required style="style:width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--black);color:#fff;width:100%"></label></p>
+        <div style="display:flex;gap:1rem;margin-top:1.5rem">
+          <button class="btn btn-green" type="submit">Send Reset Link</button>
+          <button class="btn" type="button" id="back-to-login" style="background:transparent;border:1px solid var(--line);color:#fff;cursor:pointer">Back to Login</button>
+        </div>
+        <div id="reset-status" class="status"></div>
       </form>
     </div>
 
@@ -102,10 +119,13 @@
 
   // Elements
   const loginSection = document.getElementById('login-section');
+  const forgotPasswordSection = document.getElementById('forgot-password-section');
   const uploadSection = document.getElementById('upload-section');
   const loginForm = document.getElementById('login-form');
+  const forgotPasswordForm = document.getElementById('forgot-password-form');
   const uploadForm = document.getElementById('upload-form');
   const loginStatus = document.getElementById('login-status');
+  const resetStatus = document.getElementById('reset-status');
   const uploadStatus = document.getElementById('upload-status');
   const logoutBtn = document.getElementById('logout-btn');
   const photoFile = document.getElementById('photo-file');
@@ -114,14 +134,18 @@
   const progressContainer = document.getElementById('upload-progress-container');
   const progressBar = document.getElementById('upload-progress');
   const progressPercent = document.getElementById('progress-percent');
+  const forgotPasswordLink = document.getElementById('forgot-password-link');
+  const backToLoginBtn = document.getElementById('back-to-login');
 
   // Auth State Listener
   auth.onAuthStateChanged(user => {
     if (user) {
       loginSection.classList.add('hidden');
+      forgotPasswordSection.classList.add('hidden');
       uploadSection.classList.remove('hidden');
     } else {
       loginSection.classList.remove('hidden');
+      forgotPasswordSection.classList.add('hidden');
       uploadSection.classList.add('hidden');
     }
   });
@@ -138,6 +162,39 @@
       loginStatus.textContent = err.message;
       loginStatus.classList.add('error');
     });
+  });
+
+  // Toggle Forgot Password view
+  forgotPasswordLink.addEventListener('click', e => {
+    e.preventDefault();
+    loginSection.classList.add('hidden');
+    forgotPasswordSection.classList.remove('hidden');
+    resetStatus.className = 'status';
+    resetStatus.textContent = '';
+    document.getElementById('reset-email').value = document.getElementById('login-email').value;
+  });
+
+  backToLoginBtn.addEventListener('click', () => {
+    forgotPasswordSection.classList.add('hidden');
+    loginSection.classList.remove('hidden');
+  });
+
+  // Forgot Password / Password Reset Link Request
+  forgotPasswordForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('reset-email').value;
+    resetStatus.className = 'status';
+    resetStatus.textContent = '';
+
+    auth.sendPasswordResetEmail(email)
+      .then(() => {
+        resetStatus.textContent = 'Password reset link sent! Check your inbox.';
+        resetStatus.className = 'status success';
+      })
+      .catch(err => {
+        resetStatus.textContent = err.message;
+        resetStatus.className = 'status error';
+      });
   });
 
   // Logout
