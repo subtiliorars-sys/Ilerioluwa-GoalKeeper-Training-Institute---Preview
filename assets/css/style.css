@@ -71,6 +71,8 @@ header.site {
 #nav-toggle {
   background: none; border: 2px solid var(--line); color: var(--volt);
   font-size: 1.2rem; padding: .2rem .6rem; border-radius: 6px;
+  min-width: 44px; min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
 }
 nav.main ul {
   list-style: none; margin: 0 auto; padding: 0 1rem .8rem;
@@ -135,6 +137,23 @@ nav.main a[aria-current="page"] { color: var(--volt); box-shadow: inset 0 -3px 0
 .hero h1 { font-size: 2.3rem; max-width: 24ch; }
 .hero h1 .volt { color: var(--volt); }
 .hero p.lead { font-size: 1.08rem; max-width: 52ch; color: #d7dbd0; }
+.hero-cta {
+  display: flex; flex-direction: column; gap: .55rem;
+  margin-top: .25rem; max-width: 22rem;
+}
+@media (min-width: 480px) {
+  .hero-cta { flex-direction: row; flex-wrap: wrap; max-width: none; }
+}
+@media (max-width: 479px) {
+  .hero { padding: 2rem 0 2.6rem; }
+  .hero h1 { font-size: 1.85rem; }
+  .hero p.lead { font-size: 1rem; }
+  .wordmark-img { max-width: min(100%, 280px); margin-bottom: .75rem; }
+  .hero-cta .btn {
+    display: block; width: 100%; margin: 0;
+    text-align: center; box-sizing: border-box;
+  }
+}
 @media (min-width: 800px) { .hero h1 { font-size: 3.1rem; } }
 
 /* wordmark (homepage hero) — the real volt logo lockup image */
