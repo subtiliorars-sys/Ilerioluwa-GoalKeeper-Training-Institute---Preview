@@ -24,4 +24,3 @@ OmniTender
 omni-herald
 CodeMonkeys
 infinite-banking
-Ilerioluwa
