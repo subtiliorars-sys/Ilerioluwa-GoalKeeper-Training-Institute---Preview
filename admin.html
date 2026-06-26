@@ -3,23 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin — Ilerioluwa Goalkeeper Training Center</title>
+<title>Coach Portal — Ilerioluwa Goalkeeper Training Center</title>
+<meta name="description" content="Secure coach login for gallery uploads and team access at Ilerioluwa Goalkeeper Training Center.">
+<meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <meta name="theme-color" content="#0b0c0a">
-<link rel="stylesheet" href="assets/css/style.css?v=5">
-<style>
-  .admin-panel { max-width: 500px; margin: 2rem auto; }
-  .hidden { display: none !important; }
-  .status { margin-top: 1rem; padding: 1rem; border-radius: var(--radius); display: none; }
-  .status.error { background: #fee2e2; color: #991b1b; display: block; }
-  .status.success { background: #dcfce7; color: #166534; display: block; }
-  progress { width: 100%; height: 8px; border-radius: 4px; appearance: none; }
-  progress::-webkit-progress-bar { background: var(--line); border-radius: 4px; }
-  progress::-webkit-progress-value { background: var(--volt); border-radius: 4px; }
-  .preview-img { width: 100%; border-radius: var(--radius); margin-bottom: 1rem; border: 1px solid var(--line); display: none; }
-</style>
+<link rel="stylesheet" href="assets/css/style.css?v=6">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site">
   <div class="nav-bar">
@@ -27,78 +19,152 @@
       <span class="shield">IGTC</span>
       <span class="name">Ilerioluwa<small>Goalkeeper Training Center</small></span>
     </a>
+    <button id="nav-toggle" aria-label="Menu">☰</button>
   </div>
+  <nav class="main">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="programs.html">Programs</a></li>
+      <li><a href="trials.html">Trials</a></li>
+      <li><a href="coaches.html">Coaches</a></li>
+      <li><a href="stories.html">Success Stories</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 </header>
 
-<div class="hero">
+<div class="hero" id="main">
   <div class="wrap">
-    <h1>Coach Portal</h1>
-    <p class="lead">Securely upload photos to the public gallery.</p>
+    <p class="kicker">Coach portal</p>
+    <h1>Sign in &amp; upload</h1>
+    <p class="lead">Head coaches invite staff, approve access, and publish training photos to the public gallery.</p>
   </div>
 </div>
 
 <section class="band">
-  <div class="wrap">
-    
-    <!-- LOGIN SECTION -->
-    <div id="login-section" class="admin-panel card">
-      <h2>Coach Login</h2>
-      <form id="login-form">
-        <p><label>Email<br><input type="email" id="login-email" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--black);color:#fff"></label></p>
-        <p><label>Password<br><input type="password" id="login-password" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--black);color:#fff"></label></p>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1rem">
-          <button class="btn btn-green" type="submit">Login</button>
-          <a href="#" id="forgot-password-link" style="color:var(--volt);font-size:0.9rem;text-decoration:underline">Forgot Password?</a>
-        </div>
-        <div id="login-status" class="status error"></div>
-      </form>
-    </div>
+  <div class="wrap portal-wrap">
 
-    <!-- FORGOT PASSWORD SECTION (HIDDEN BY DEFAULT) -->
-    <div id="forgot-password-section" class="admin-panel card hidden">
-      <h2>Reset Password</h2>
-      <p style="color:var(--muted);font-size:0.95rem;margin-bottom:1.5rem">Enter your account email below, and we will send you a secure link to reset your password.</p>
-      <form id="forgot-password-form">
-        <p><label>Email<br><input type="email" id="reset-email" required style="style:width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--black);color:#fff;width:100%"></label></p>
-        <div style="display:flex;gap:1rem;margin-top:1.5rem">
-          <button class="btn btn-green" type="submit">Send Reset Link</button>
-          <button class="btn" type="button" id="back-to-login" style="background:transparent;border:1px solid var(--line);color:#fff;cursor:pointer">Back to Login</button>
-        </div>
-        <div id="reset-status" class="status"></div>
-      </form>
-    </div>
-
-    <!-- UPLOAD SECTION (HIDDEN BY DEFAULT) -->
-    <div id="upload-section" class="admin-panel card hidden">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
-        <h2 style="margin:0">Upload Photo</h2>
-        <button id="logout-btn" style="background:none;border:none;color:var(--muted);cursor:pointer;text-decoration:underline">Logout</button>
+    <!-- AUTH: sign in / activate / reset -->
+    <div id="auth-panel" class="portal-panel card">
+      <div class="portal-tabs" role="tablist" aria-label="Account">
+        <button type="button" class="portal-tab portal-tab--active" data-auth-tab="sign-in" role="tab" aria-selected="true">Sign in</button>
+        <button type="button" class="portal-tab" data-auth-tab="activate" role="tab" aria-selected="false">Activate account</button>
       </div>
-      
-      <form id="upload-form">
-        <img id="image-preview" class="preview-img">
-        <p><label>Select Photograph<br><input type="file" id="photo-file" accept="image/*" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
-        <p><label>Caption / Location<br><input type="text" id="photo-caption" placeholder="e.g. Training day — Liberty Stadium" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--black);color:#fff"></label></p>
-        
-        <div id="upload-progress-container" class="hidden">
-          <p>Uploading... <span id="progress-percent">0%</span></p>
-          <progress id="upload-progress" value="0" max="100"></progress>
-        </div>
 
-        <button class="btn btn-green" type="submit" id="upload-btn" style="margin-top:1rem">Upload to Gallery</button>
-        <div id="upload-status" class="status"></div>
-      </form>
+      <div data-auth-panel="sign-in">
+        <h2>Coach sign in</h2>
+        <p class="muted">Use the email and password you set when your account was activated.</p>
+        <form id="login-form">
+          <p><label>Email<br><input type="email" id="login-email" required autocomplete="username"></label></p>
+          <p><label>Password<br><input type="password" id="login-password" required autocomplete="current-password"></label></p>
+          <div class="portal-actions">
+            <button class="btn btn-green" type="submit">Sign in</button>
+            <button type="button" class="portal-link" id="forgot-password-link">Forgot password?</button>
+          </div>
+          <div id="login-status" class="status" hidden></div>
+        </form>
+      </div>
+
+      <div data-auth-panel="activate" class="hidden">
+        <h2>Activate account</h2>
+        <p class="muted">The head coach must invite your email first. Then choose a password here.</p>
+        <form id="activate-form">
+          <p><label>Full name<br><input type="text" id="activate-name" required autocomplete="name" placeholder="e.g. Coach Akindeko"></label></p>
+          <p><label>Invited email<br><input type="email" id="activate-email" required autocomplete="email"></label></p>
+          <p><label>New password<br><input type="password" id="activate-password" required autocomplete="new-password" minlength="8"></label></p>
+          <p><label>Confirm password<br><input type="password" id="activate-password2" required autocomplete="new-password" minlength="8"></label></p>
+          <button class="btn btn-green" type="submit">Activate &amp; sign in</button>
+          <div id="activate-status" class="status" hidden></div>
+        </form>
+      </div>
+
+      <div data-auth-panel="reset" class="hidden">
+        <h2>Reset password</h2>
+        <p class="muted">We will email you a secure link to choose a new password.</p>
+        <form id="reset-form">
+          <p><label>Email<br><input type="email" id="reset-email" required autocomplete="email"></label></p>
+          <div class="portal-actions">
+            <button class="btn btn-green" type="submit">Send reset link</button>
+            <button type="button" class="portal-link" data-auth-tab="sign-in">Back to sign in</button>
+          </div>
+          <div id="reset-status" class="status" hidden></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- UNAUTHORIZED -->
+    <div id="unauthorized-panel" class="portal-panel card hidden">
+      <h2>Access not authorized</h2>
+      <p>Signed in as <strong id="unauthorized-email"></strong>, but this account is not on the coach roster.</p>
+      <p class="muted">Ask the head coach to send you an invite, then use <strong>Activate account</strong> above.</p>
+      <button type="button" class="btn btn-green" id="unauthorized-logout">Sign out</button>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard-panel" class="hidden">
+      <div class="portal-bar card">
+        <p class="portal-signed-in">Signed in · <span id="signed-in-label"></span></p>
+        <button type="button" id="logout-btn" class="portal-link">Sign out</button>
+      </div>
+
+      <div class="portal-tabs portal-tabs--dash" role="tablist" aria-label="Portal sections">
+        <button type="button" class="portal-tab portal-tab--active" data-dash-tab="upload" role="tab" aria-selected="true">Upload photo</button>
+        <button type="button" class="portal-tab" data-dash-tab="team" role="tab" aria-selected="false" id="team-tab">Team access</button>
+      </div>
+
+      <div class="portal-panel card" data-dash-panel="upload">
+        <h2>Upload to gallery</h2>
+        <p class="muted">Photos appear at the top of the public gallery. Use scene-only captions — no player names without consent.</p>
+        <form id="upload-form">
+          <img id="image-preview" class="preview-img" alt="">
+          <p><label>Select photograph<br><input type="file" id="photo-file" accept="image/jpeg,image/png,image/webp" required></label></p>
+          <p><label>Caption / location<br><input type="text" id="photo-caption" required placeholder="e.g. Training day — Liberty Stadium"></label></p>
+          <div id="upload-progress-container" class="hidden">
+            <p>Uploading… <span id="progress-percent">0%</span></p>
+            <progress id="upload-progress" value="0" max="100"></progress>
+          </div>
+          <button class="btn btn-green" type="submit" id="upload-btn">Upload to gallery</button>
+          <div id="upload-status" class="status" hidden></div>
+        </form>
+      </div>
+
+      <div class="portal-panel card hidden" data-dash-panel="team">
+        <h2>Invite a coach</h2>
+        <p class="muted">Only head coaches can authorize new portal users. Invited people use <strong>Activate account</strong> on this page.</p>
+        <form id="invite-form">
+          <p><label>Name<br><input type="text" id="invite-name" required placeholder="Coach or staff name"></label></p>
+          <p><label>Email<br><input type="email" id="invite-email" required></label></p>
+          <p><label>Role<br>
+            <select id="invite-role" required>
+              <option value="coach">Coach — upload photos</option>
+              <option value="admin">Head coach — upload + invite others</option>
+            </select>
+          </label></p>
+          <button class="btn btn-green" type="submit">Send invite</button>
+          <div id="invite-status" class="status" hidden></div>
+        </form>
+
+        <h3 style="margin-top:2rem">Roster</h3>
+        <div id="coach-list" class="coach-list"></div>
+      </div>
     </div>
 
   </div>
 </section>
 
-<!-- Firebase SDKs (Compat) -->
+<footer class="site band alt">
+  <div class="wrap">
+    <p>&copy; 2026 Ilerioluwa Goalkeeper Training Center. Coach portal — authorized staff only.</p>
+  </div>
+</footer>
+
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
-
 <script>
   // Configuration provided by user
   const firebaseConfig = {
@@ -113,166 +179,13 @@
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-  const storage = firebase.storage();
-
-  // Elements
-  const loginSection = document.getElementById('login-section');
-  const forgotPasswordSection = document.getElementById('forgot-password-section');
-  const uploadSection = document.getElementById('upload-section');
-  const loginForm = document.getElementById('login-form');
-  const forgotPasswordForm = document.getElementById('forgot-password-form');
-  const uploadForm = document.getElementById('upload-form');
-  const loginStatus = document.getElementById('login-status');
-  const resetStatus = document.getElementById('reset-status');
-  const uploadStatus = document.getElementById('upload-status');
-  const logoutBtn = document.getElementById('logout-btn');
-  const photoFile = document.getElementById('photo-file');
-  const imagePreview = document.getElementById('image-preview');
-  const uploadBtn = document.getElementById('upload-btn');
-  const progressContainer = document.getElementById('upload-progress-container');
-  const progressBar = document.getElementById('upload-progress');
-  const progressPercent = document.getElementById('progress-percent');
-  const forgotPasswordLink = document.getElementById('forgot-password-link');
-  const backToLoginBtn = document.getElementById('back-to-login');
-
-  // Auth State Listener
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      loginSection.classList.add('hidden');
-      forgotPasswordSection.classList.add('hidden');
-      uploadSection.classList.remove('hidden');
-    } else {
-      loginSection.classList.remove('hidden');
-      forgotPasswordSection.classList.add('hidden');
-      uploadSection.classList.add('hidden');
-    }
-  });
-
-  // Login
-  loginForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const pass = document.getElementById('login-password').value;
-    loginStatus.classList.remove('error');
-    loginStatus.textContent = '';
-
-    auth.signInWithEmailAndPassword(email, pass).catch(err => {
-      loginStatus.textContent = err.message;
-      loginStatus.classList.add('error');
-    });
-  });
-
-  // Toggle Forgot Password view
-  forgotPasswordLink.addEventListener('click', e => {
-    e.preventDefault();
-    loginSection.classList.add('hidden');
-    forgotPasswordSection.classList.remove('hidden');
-    resetStatus.className = 'status';
-    resetStatus.textContent = '';
-    document.getElementById('reset-email').value = document.getElementById('login-email').value;
-  });
-
-  backToLoginBtn.addEventListener('click', () => {
-    forgotPasswordSection.classList.add('hidden');
-    loginSection.classList.remove('hidden');
-  });
-
-  // Forgot Password / Password Reset Link Request
-  forgotPasswordForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const email = document.getElementById('reset-email').value;
-    resetStatus.className = 'status';
-    resetStatus.textContent = '';
-
-    auth.sendPasswordResetEmail(email)
-      .then(() => {
-        resetStatus.textContent = 'Password reset link sent! Check your inbox.';
-        resetStatus.className = 'status success';
-      })
-      .catch(err => {
-        resetStatus.textContent = err.message;
-        resetStatus.className = 'status error';
-      });
-  });
-
-  // Logout
-  logoutBtn.addEventListener('click', () => auth.signOut());
-
-  // Image Preview
-  photoFile.addEventListener('change', e => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        imagePreview.src = e.target.result;
-        imagePreview.style.display = 'block';
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-
-  // Upload
-  uploadForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const file = photoFile.files[0];
-    const caption = document.getElementById('photo-caption').value;
-
-    if (!file) return;
-
-    uploadBtn.disabled = true;
-    progressContainer.classList.remove('hidden');
-    uploadStatus.className = 'status';
-    uploadStatus.textContent = '';
-
-    // Create a unique filename
-    const filename = Date.now() + '_' + file.name;
-    const storageRef = storage.ref('photos/' + filename);
-    const uploadTask = storageRef.put(file);
-
-    uploadTask.on('state_changed', 
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        progressBar.value = progress;
-        progressPercent.textContent = Math.round(progress) + '%';
-      }, 
-      (error) => {
-        uploadBtn.disabled = false;
-        uploadStatus.textContent = 'Upload failed: ' + error.message;
-        uploadStatus.classList.add('error');
-      }, 
-      () => {
-        // Upload successful, get URL and save to Firestore
-        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          return db.collection('photos').add({
-            url: downloadURL,
-            caption: caption,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            filename: filename
-          });
-        }).then(() => {
-          uploadBtn.disabled = false;
-          progressContainer.classList.add('hidden');
-          uploadStatus.textContent = 'Photo uploaded successfully!';
-          uploadStatus.classList.add('success');
-          uploadForm.reset();
-          imagePreview.style.display = 'none';
-        }).catch(err => {
-          uploadBtn.disabled = false;
-          uploadStatus.textContent = 'Failed to save metadata: ' + err.message;
-          uploadStatus.classList.add('error');
-        });
-      }
-    );
-  });
+  window.IGTC_FB = {
+    auth: firebase.auth(),
+    db: firebase.firestore(),
+    storage: firebase.storage()
+  };
 </script>
-
-<footer class="site band alt">
-  <div class="wrap">
-    <p>&copy; 2026 Ilerioluwa Goalkeeper Training Center. Admin Portal.</p>
-  </div>
-</footer>
-
+<script src="assets/js/coach-portal.js"></script>
+<script src="assets/js/main.js?v=6"></script>
 </body>
 </html>

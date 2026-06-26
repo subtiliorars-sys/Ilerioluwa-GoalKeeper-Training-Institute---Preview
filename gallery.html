@@ -18,7 +18,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="assets/css/style.css?v=5">
+<link rel="stylesheet" href="assets/css/style.css?v=6">
 <style>
   /* photo grid — lazy-loaded, low-bandwidth friendly */
   .photo-grid { display: grid; gap: .6rem; grid-template-columns: repeat(2, 1fr); }
@@ -148,9 +148,8 @@
 <!-- Firebase SDKs (Compat) -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
 <script>
-  (function() {
+  (function () {
     const firebaseConfig = {
       apiKey: "AIzaSyD-FO_roZw-j-YuIosdWq50iSdWWTcDTHk",
       authDomain: "ilerioluwa-goal-keeper-train.firebaseapp.com",
@@ -163,39 +162,32 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-    const photoGrid = document.getElementById('photo-grid');
-    const loader = document.getElementById('gallery-loader');
+    var photoGrid = document.getElementById("photo-grid");
+    var loader = document.getElementById("gallery-loader");
 
-    // Fetch photos from Firestore
-    db.collection('photos').orderBy('createdAt', 'desc').get().then((querySnapshot) => {
+    db.collection("photos").orderBy("createdAt", "desc").get().then(function (querySnapshot) {
       if (loader) loader.remove();
-      
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const figure = document.createElement('figure');
-        
-        const img = document.createElement('img');
+      querySnapshot.forEach(function (doc) {
+        var data = doc.data();
+        var figure = document.createElement("figure");
+        var img = document.createElement("img");
         img.src = data.url;
-        img.alt = data.caption || 'Goalkeeper Training Photo';
-        img.loading = 'lazy';
-        
-        const figcaption = document.createElement('figcaption');
-        figcaption.textContent = data.caption || '';
-        
+        img.alt = data.caption || "Goalkeeper Training Photo";
+        img.loading = "lazy";
+        var figcaption = document.createElement("figcaption");
+        figcaption.textContent = data.caption || "";
         figure.appendChild(img);
         if (data.caption) figure.appendChild(figcaption);
-        
-        // Insert dynamic photos at the top (after potential future loader removal)
         photoGrid.prepend(figure);
       });
-    }).catch((error) => {
+    }).catch(function (error) {
       console.error("Error getting documents: ", error);
-      if (loader) loader.innerHTML = '<p style="color:red">Failed to load the latest photos. Please try again later.</p>';
+      if (loader) loader.innerHTML = "<p style=\"color:red\">Failed to load the latest photos. Please try again later.</p>";
     });
   })();
 </script>
 
 <script src="assets/js/config.js"></script>
-<script src="assets/js/main.js?v=5"></script>
+<script src="assets/js/main.js?v=6"></script>
 </body>
 </html>
