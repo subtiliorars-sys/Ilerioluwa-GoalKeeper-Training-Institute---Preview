@@ -2,7 +2,9 @@
 var _nt = document.getElementById('nav-toggle');
 if (_nt) _nt.addEventListener('click', function () {
   var n = document.querySelector('nav.main');
-  if (n) n.classList.toggle('open');
+  if (!n) return;
+  var open = n.classList.toggle('open');
+  this.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
 (function () {
   var here = location.pathname.split('/').pop() || 'index.html';
@@ -19,7 +21,7 @@ if (_nt) _nt.addEventListener('click', function () {
   }, { threshold: 0.12 });
   els.forEach(function (e) { io.observe(e); });
 })();
-// Inquiry form → opens WhatsApp with the message pre-filled (no backend needed).
+// Inquiry form â†’ opens WhatsApp with the message pre-filled (no backend needed).
 (function () {
   var f = document.getElementById('inquiry-form');
   if (!f) return;
