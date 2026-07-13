@@ -18,11 +18,6 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-{"@type":"ListItem","position":1,"name":"Home","item":"https://ilerioluwa-goalkeeper.pages.dev/"},
-{"@type":"ListItem","position":2,"name":"Contact","item":"https://ilerioluwa-goalkeeper.pages.dev/contact.html"}]}
-</script>
 <link rel="stylesheet" href="assets/css/style.css?v=6">
 </head>
 <body>
@@ -51,7 +46,7 @@
   </nav>
 </header>
 
-<main id="main" tabindex="-1"><div class="hero">
+<main id="main" tabindex="-1"><div class="hero" id="main">
   <div class="wrap">
     <p class="kicker">Ẹ káàbọ̀ · Contact</p>
     <h1>Talk to us</h1>
@@ -93,20 +88,47 @@
     <h2>Send an inquiry</h2>
     <!-- zero-backend form: JS submits via WhatsApp (main.js); mailto action = no-JS fallback -->
     <form class="card" id="inquiry-form" action="mailto:akindekotobi3@gmail.com" method="get" enctype="text/plain">
-      <p><label>Your name<br><input name="name" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
+      <p><label>Your name<br><input name="name" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--coal);color:var(--paper)"></label></p>
       <p><label>Keeper's age group<br>
-        <select name="age" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px">
+        <select name="age" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--coal);color:var(--paper)">
           <option>Ages 15–17 (U15–U17)</option><option>18 and above</option>
         </select></label></p>
-      <p><label>Message<br><textarea name="body" rows="4" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></textarea></label></p>
+      <p><label>Inquiry type<br>
+        <select id="inquiry-type" name="inquiry_type" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--coal);color:var(--paper)">
+          <option value="general">General Question</option>
+          <option value="weekly">Register for Weekly Training</option>
+          <option value="scholarship">Inquire about Scholarships</option>
+          <option value="one_on_one">Book a One-on-One Session</option>
+          <option value="kit">Kit & Glove Package Details</option>
+        </select></label></p>
+      <p><label>Message<br><textarea id="inquiry-body" name="body" rows="4" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px;background:var(--coal);color:var(--paper)"></textarea></label></p>
       <button class="btn btn-green" type="submit">💬 Send on WhatsApp</button>
       <small>(Opens WhatsApp with your message ready to send — or
       <a href="mailto:akindekotobi3@gmail.com">email us</a> instead.)</small>
     </form>
+    <script>
+      (function() {
+        var typeSel = document.getElementById('inquiry-type');
+        var bodyText = document.getElementById('inquiry-body');
+        var templates = {
+          general: "I have a few questions about the academy. Could you please share more information?",
+          weekly: "I would like to register for the weekly goalkeeper training sessions. Please let me know how to proceed with registration and fee payment.",
+          scholarship: "I'm interested in the goalkeeper scholarships at the Center. Could you please share the eligibility requirements and how we can apply?",
+          one_on_one: "I want to arrange a private 1-on-1 goalkeeper training session with Coach Tobi. Please let me know your availability and session rates.",
+          kit: "I'd like to get details on the boot, glove, and jersey package. Can you tell me what is included and how much it costs?"
+        };
+        bodyText.value = templates.general;
+        typeSel.addEventListener('change', function() {
+          var val = typeSel.value;
+          if (templates[val]) {
+            bodyText.value = templates[val];
+          }
+        });
+      })();
+    </script>
   </div>
-</section>
+</section></main>
 
-</main>
 <footer class="site">
   <div class="wrap">
     <div class="cols">

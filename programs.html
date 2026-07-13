@@ -18,11 +18,6 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-{"@type":"ListItem","position":1,"name":"Home","item":"https://ilerioluwa-goalkeeper.pages.dev/"},
-{"@type":"ListItem","position":2,"name":"Programs & Fees","item":"https://ilerioluwa-goalkeeper.pages.dev/programs.html"}]}
-</script>
 <link rel="stylesheet" href="assets/css/style.css?v=6">
 </head>
 <body>
@@ -51,7 +46,7 @@
   </nav>
 </header>
 
-<main id="main" tabindex="-1"><div class="hero">
+<main id="main" tabindex="-1"><div class="hero" id="main">
   <div class="wrap">
     <p class="kicker">Programs &amp; Fees</p>
     <h1>A program for every keeper — a plan for every season</h1>
@@ -183,7 +178,118 @@
   </div>
 </section>
 
-</main>
+<!-- Interactive Keeper Kit Checklist Section -->
+<section class="band">
+  <div class="wrap">
+    <h2>🧤 Keeper Kit Checklist</h2>
+    <p>What should you bring to your training sessions? Check off what you have ready. We'll save your progress automatically.</p>
+    
+    <div class="card" style="background: var(--coal); border: 1px solid var(--line); padding: 1.5rem; border-radius: var(--radius);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+        <span id="checklist-progress-text" style="font-weight: 700; color: var(--volt);">0 of 6 items ready</span>
+        <div style="background: var(--line); width: 150px; height: 10px; border-radius: 5px; overflow: hidden;">
+          <div id="checklist-progress-bar" style="background: var(--volt); width: 0%; height: 100%; transition: width 0.3s ease;"></div>
+        </div>
+      </div>
+      
+      <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+        <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer;">
+          <input type="checkbox" class="kit-item" data-id="gloves" style="width: 20px; height: 20px; accent-color: var(--volt);">
+          <div>
+            <strong>Goalkeeper Gloves</strong>
+            <div style="font-size: 0.85rem; color: var(--muted);">Essential for safety and grip. Flat palm or roll finger are perfect for starting out.</div>
+          </div>
+        </label>
+        
+        <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; border-top: 1px solid var(--line); padding-top: 0.8rem;">
+          <input type="checkbox" class="kit-item" data-id="boots" style="width: 20px; height: 20px; accent-color: var(--volt);">
+          <div>
+            <strong>Football Boots</strong>
+            <div style="font-size: 0.85rem; color: var(--muted);">Firm ground (FG) or multi-ground studs for the Marvelous Pitch surface.</div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; border-top: 1px solid var(--line); padding-top: 0.8rem;">
+          <input type="checkbox" class="kit-item" data-id="shinguards" style="width: 20px; height: 20px; accent-color: var(--volt);">
+          <div>
+            <strong>Shin Guards</strong>
+            <div style="font-size: 0.85rem; color: var(--muted);">Safety first. These are required for all match-play drills.</div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; border-top: 1px solid var(--line); padding-top: 0.8rem;">
+          <input type="checkbox" class="kit-item" data-id="clothing" style="width: 20px; height: 20px; accent-color: var(--volt);">
+          <div>
+            <strong>Athletic Training Wear</strong>
+            <div style="font-size: 0.85rem; color: var(--muted);">A breathable sports shirt and shorts. Goalkeeper-padded trousers are optional but recommended.</div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; border-top: 1px solid var(--line); padding-top: 0.8rem;">
+          <input type="checkbox" class="kit-item" data-id="water" style="width: 20px; height: 20px; accent-color: var(--volt);">
+          <div>
+            <strong>Water Bottle</strong>
+            <div style="font-size: 0.85rem; color: var(--muted);">Hydration is key. Bring a full bottle of water to every session.</div>
+          </div>
+        </label>
+
+        <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; border-top: 1px solid var(--line); padding-top: 0.8rem;">
+          <input type="checkbox" class="kit-item" data-id="towel" style="width: 20px; height: 20px; accent-color: var(--volt);">
+          <div>
+            <strong>Hand Towel & Spare Shirt</strong>
+            <div style="font-size: 0.85rem; color: var(--muted);">For catching breath and wiping sweat/mud after diving reps.</div>
+          </div>
+        </label>
+      </div>
+      
+      <div id="checklist-success-msg" style="margin-top: 1.5rem; text-align: center; color: var(--teal); font-weight: 700; opacity: 0; transition: opacity 0.3s;" hidden>
+        🎉 You are fully packed and ready for the training field!
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var items = document.querySelectorAll('.kit-item');
+    var progressText = document.getElementById('checklist-progress-text');
+    var progressBar = document.getElementById('checklist-progress-bar');
+    var successMsg = document.getElementById('checklist-success-msg');
+
+    function updateChecklist() {
+      var checkedCount = 0;
+      items.forEach(function(item) {
+        var id = item.getAttribute('data-id');
+        var checked = localStorage.getItem('kit-' + id) === 'true';
+        item.checked = checked;
+        if (checked) checkedCount++;
+      });
+
+      progressText.textContent = checkedCount + ' of ' + items.length + ' items ready';
+      var pct = (checkedCount / items.length) * 100;
+      progressBar.style.width = pct + '%';
+
+      if (checkedCount === items.length) {
+        successMsg.hidden = false;
+        setTimeout(function() { successMsg.style.opacity = '1'; }, 50);
+      } else {
+        successMsg.style.opacity = '0';
+        setTimeout(function() { successMsg.hidden = true; }, 300);
+      }
+    }
+
+    items.forEach(function(item) {
+      item.addEventListener('change', function() {
+        var id = item.getAttribute('data-id');
+        localStorage.setItem('kit-' + id, item.checked);
+        updateChecklist();
+      });
+    });
+
+    updateChecklist();
+  })();
+</script></main>
+
 <footer class="site">
   <div class="wrap">
     <div class="cols">

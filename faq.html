@@ -47,9 +47,9 @@
       <span class="shield">IGTC</span>
       <span class="name">Ilerioluwa<small>Goalkeeper Training Center</small></span>
     </a>
-    <button id="nav-toggle" aria-label="Menu">☰</button>
+    <button id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
   </div>
-  <nav class="main">
+  <nav class="main" id="primary-nav">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="programs.html">Programs</a></li>
@@ -64,12 +64,17 @@
   </nav>
 </header>
 
-<div class="hero" id="main">
+<main id="main" tabindex="-1"><div class="hero" id="main">
   <div class="wrap">
     <p class="kicker">FAQ</p>
     <h1>Questions parents ask us</h1>
     <p class="lead">Straight answers. Anything not covered here —
     <a href="https://wa.me/2347036190935">ask us on WhatsApp</a> and we'll reply directly.</p>
+    
+    <!-- FAQ Search Bar -->
+    <div style="margin-top: 1.5rem; max-width: 500px;">
+      <input type="text" id="faq-search" placeholder="🔍 Search questions (e.g. age, cost, safety)..." style="width:100%; padding:0.75rem 1rem; border:2px solid var(--volt); border-radius:30px; background:var(--coal); color:var(--paper); font-size:1rem; outline:none; box-shadow: 0 0 10px rgba(200,243,29,0.1);">
+    </div>
   </div>
 </div>
 
@@ -193,7 +198,7 @@
       <a class="btn btn-outline" href="glossary.html">Goalkeeper terms explained</a>
     </p>
   </div>
-</section>
+</section></main>
 
 <footer class="site">
   <div class="wrap">
@@ -227,5 +232,153 @@
 <a class="wa-float" href="https://wa.me/2347036190935">💬 WhatsApp us</a>
 <script defer src="assets/js/config.js"></script>
 <script defer src="assets/js/main.js?v=6"></script>
+<script>
+  (function() {
+    var cards = document.querySelectorAll('.band .card');
+    var bands = document.querySelectorAll('section.band');
+
+    // 1. Transform cards into Accordion components
+    cards.forEach(function(card) {
+      var h3 = card.querySelector('h3');
+      if (!h3) return;
+
+      // Wrap all siblings after h3 in a div
+      var wrapper = document.createElement('div');
+      wrapper.className = 'faq-answer';
+      wrapper.style.maxHeight = '0px';
+      wrapper.style.overflow = 'hidden';
+      wrapper.style.transition = 'max-height 0.3s ease, margin-top 0.3s ease, padding 0.3s ease';
+      wrapper.style.padding = '0 0.5rem';
+
+      // Move siblings to wrapper
+      while (h3.nextSibling) {
+        wrapper.appendChild(h3.nextSibling);
+      }
+      card.appendChild(wrapper);
+
+      // Setup styling for h3
+      h3.style.cursor = 'pointer';
+      h3.style.userSelect = 'none';
+      h3.style.display = 'flex';
+      h3.style.justifyContent = 'space-between';
+      h3.style.alignItems = 'center';
+      h3.style.gap = '0.5rem';
+      h3.style.width = '100%';
+      h3.style.margin = '0';
+      h3.style.padding = '0.5rem';
+      h3.style.borderRadius = '6px';
+      h3.style.transition = 'background-color 0.2s';
+      
+      // Toggle symbol
+      var icon = document.createElement('span');
+      icon.textContent = '+';
+      icon.style.color = 'var(--volt)';
+      icon.style.fontSize = '1.3rem';
+      icon.style.fontWeight = 'bold';
+      icon.style.transition = 'transform 0.3s';
+      h3.appendChild(icon);
+
+      card.style.padding = '0.5rem';
+      card.style.display = 'flex';
+      card.style.flexDirection = 'column';
+      card.style.justifyContent = 'flex-start';
+
+      h3.addEventListener('click', function() {
+        var isOpen = wrapper.style.maxHeight !== '0px';
+        
+        // Close other FAQs in the same section
+        var parentGrid = card.parentElement;
+        if (parentGrid) {
+          parentGrid.querySelectorAll('.card').forEach(function(c) {
+            if (c !== card) {
+              var w = c.querySelector('.faq-answer');
+              var ic = c.querySelector('h3 span');
+              if (w && w.style.maxHeight !== '0px') {
+                w.style.maxHeight = '0px';
+                w.style.marginTop = '0px';
+                if (ic) { ic.textContent = '+'; ic.style.transform = 'rotate(0deg)'; }
+              }
+            }
+          });
+        }
+
+        if (isOpen) {
+          wrapper.style.maxHeight = '0px';
+          wrapper.style.marginTop = '0px';
+          icon.textContent = '+';
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+          wrapper.style.marginTop = '0.5rem';
+          icon.textContent = '-';
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+      
+      h3.addEventListener('mouseenter', function() {
+        h3.style.background = 'rgba(200,243,29,0.05)';
+      });
+      h3.addEventListener('mouseleave', function() {
+        h3.style.background = 'transparent';
+      });
+    });
+
+    // 2. Wire up search input
+    var searchInput = document.getElementById('faq-search');
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        var query = searchInput.value.toLowerCase().trim();
+        
+        bands.forEach(function(band) {
+          var cardsInBand = band.querySelectorAll('.card');
+          var visibleCards = 0;
+          
+          cardsInBand.forEach(function(card) {
+            var h3 = card.querySelector('h3');
+            var wrapper = card.querySelector('.faq-answer');
+            if (!h3 || !wrapper) return;
+            
+            var questionText = h3.textContent.toLowerCase();
+            var answerText = wrapper.textContent.toLowerCase();
+            
+            if (query === '' || questionText.indexOf(query) !== -1 || answerText.indexOf(query) !== -1) {
+              card.style.display = 'flex';
+              visibleCards++;
+              
+              // If searching and matches, auto-expand
+              if (query !== '') {
+                wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+                wrapper.style.marginTop = '0.5rem';
+                var ic = h3.querySelector('span');
+                if (ic) { ic.textContent = '-'; ic.style.transform = 'rotate(180deg)'; }
+              } else {
+                // If empty search, collapse back
+                wrapper.style.maxHeight = '0px';
+                wrapper.style.marginTop = '0px';
+                var ic = h3.querySelector('span');
+                if (ic) { ic.textContent = '+'; ic.style.transform = 'rotate(0deg)'; }
+              }
+            } else {
+              card.style.display = 'none';
+            }
+          });
+          
+          // Show/hide entire band section depending on matches
+          var header = band.querySelector('h2');
+          var grid = band.querySelector('.grid');
+          if (query !== '' && visibleCards === 0) {
+            if (header) header.style.display = 'none';
+            if (grid) grid.style.display = 'none';
+            band.style.display = 'none';
+          } else {
+            if (header) header.style.display = 'block';
+            if (grid) grid.style.display = 'grid';
+            band.style.display = 'block';
+          }
+        });
+      });
+    }
+  })();
+</script>
 </body>
 </html>
