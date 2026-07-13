@@ -488,3 +488,29 @@ progress::-webkit-progress-value { background: var(--volt); border-radius: 4px; 
   border-radius: var(--radius); background: var(--black);
 }
 .coach-row--pending { border-style: dashed; opacity: .92; }
+
+/* Print styles — clean black-on-white trials/schedule sheets */
+@media print {
+  *, *::before, *::after {
+    background: #fff !important; color: #000 !important;
+    box-shadow: none !important; text-shadow: none !important;
+  }
+  body { font-size: 11pt; line-height: 1.4; }
+  nav.main, #nav-toggle, .wa-float, .hero p:last-child,
+  .btn, .gog-ui, .keeper-game, script { display: none !important; }
+  header.site { border-bottom: 1px solid #000; }
+  .crest .shield { border: 1px solid #000; }
+  .band, .band.alt { padding: .6rem 0 !important; }
+  .card, blockquote, figure {
+    border: 1px solid #999 !important; border-radius: 0 !important;
+  }
+  table { border-collapse: collapse !important; width: 100%; }
+  th, td { border: 1px solid #999 !important; padding: 4px 6px !important; }
+  .card, blockquote, tr, figure { page-break-inside: avoid; }
+  h1, h2, h3 { page-break-after: avoid; }
+  .wrap a[href^="http"]::after {
+    content: " (" attr(href) ")"; font-size: 9pt; color: #444 !important;
+    word-break: break-all;
+  }
+  a[href^="#"]::after, a[href^="mailto:"]::after { content: ""; }
+}
