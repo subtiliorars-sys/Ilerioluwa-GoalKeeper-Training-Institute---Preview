@@ -22,19 +22,35 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SportsOrganization",
-  "name": "Ilerioluwa Goalkeeper Training Center",
-  "sport": "Soccer",
-  "description": "Specialist goalkeeper training academy in Ibadan, Nigeria for ages 15-18+.",
-  "url": "https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/",
-  "logo": "https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/assets/img/logo-lockup.jpg",
-  "email": "akindekotobi3@gmail.com",
-  "telephone": "+2347036190935",
-  "sameAs": [
-    "https://www.tiktok.com/@ilerioluwa.goalke",
-    "https://www.youtube.com/@ilerigktrainingcenter"
-  ],
-  "address": { "@type": "PostalAddress", "addressLocality": "Ibadan", "addressRegion": "Oyo", "addressCountry": "NG" }
+  "@graph": [
+    {
+      "@type": ["SportsOrganization", "SportsActivityLocation"],
+      "@id": "https://ilerioluwa-goalkeeper.pages.dev/#org",
+      "name": "Ilerioluwa Goalkeeper Training Center",
+      "alternateName": "Guardian of Goal",
+      "sport": "Association football",
+      "description": "Specialist goalkeeper training academy in Ibadan, Nigeria for ages 15-18+. The first session is free; keepers train on a periodized curriculum toward club and academy football.",
+      "url": "https://ilerioluwa-goalkeeper.pages.dev/",
+      "logo": "https://ilerioluwa-goalkeeper.pages.dev/assets/img/logo-lockup.jpg",
+      "image": "https://ilerioluwa-goalkeeper.pages.dev/assets/img/og-card.jpg",
+      "foundingDate": "2025",
+      "areaServed": { "@type": "City", "name": "Ibadan" },
+      "address": { "@type": "PostalAddress", "addressLocality": "Ibadan", "addressRegion": "Oyo", "addressCountry": "NG" },
+      "contactPoint": { "@type": "ContactPoint", "contactType": "admissions", "telephone": "+2347036190935", "availableLanguage": "en" },
+      "sameAs": [
+        "https://www.tiktok.com/@ilerioluwa.goalke",
+        "https://www.youtube.com/@ilerigktrainingcenter"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ilerioluwa-goalkeeper.pages.dev/#website",
+      "url": "https://ilerioluwa-goalkeeper.pages.dev/",
+      "name": "Ilerioluwa Goalkeeper Training Center",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://ilerioluwa-goalkeeper.pages.dev/#org" }
+    }
+  ]
 }
 </script>
 <link rel="stylesheet" href="assets/css/style.css?v=6">
