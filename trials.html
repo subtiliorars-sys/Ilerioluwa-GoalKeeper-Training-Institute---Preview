@@ -81,8 +81,13 @@
       tier and discusses goals with the parent/guardian.</li>
       <li><strong>Register and pay.</strong> Pay the first month by bank transfer to
       <strong>Akindeko Oluwatobiloba Simon · 1485496863 · Access Bank</strong>, then
-      send your receipt on WhatsApp to confirm your place.</li>
+      send your receipt on WhatsApp to confirm your place. Optional: when our Paystack link goes live below, you can pay online instead of bank transfer.</li>
     </ol>
+
+    <p style="margin-top:1rem">
+      <a class="btn btn-green is-disabled" href="#" data-fill-href="paystackUrl" aria-disabled="true">Pay securely with Paystack</a>
+      <span class="sample" data-when-empty="paystackUrl">SAMPLE - secure payment link coming soon (set paystackUrl in config.js)</span>
+    </p>
   </div>
 </section>
 
@@ -91,14 +96,27 @@
     <h2>Book the free trial now</h2>
     <p>Fill this in and it opens WhatsApp with your booking message ready to send —
     nothing is stored on the website.</p>
-    <form class="card" id="trial-form" action="mailto:akindekotobi3@gmail.com" method="get" enctype="text/plain">
-      <p><label>Keeper's first name<br><input name="keeper" required style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
+    <form class="card wa-form" id="trial-form" action="mailto:akindekotobi3@gmail.com" method="get" enctype="text/plain"
+          data-wa-intro="Hello Ilerioluwa Goalkeeper Training Center - I'd like to book a FREE trial session.">
+      <p><label>Keeper's first name<br>
+        <input name="keeper" data-wa-label="Keeper's name" required autocomplete="name" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
       <p><label>Age group<br>
-        <select name="age" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px">
-          <option>Ages 15–17 (U15–U17)</option><option>18 and above</option>
+        <select name="age" data-wa-label="Age group" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px">
+          <option>Ages 15-17 (U15-U17)</option><option>18 and above</option>
         </select></label></p>
-      <p><label>When is best to contact you?<br><input name="when" placeholder="e.g. evenings, weekends" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
-      <button class="btn btn-gold" type="submit">🧤 Book my FREE session on WhatsApp</button>
+      <p><label>Parent / guardian name (optional)<br>
+        <input name="guardian" data-wa-label="Parent/guardian" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
+      <p><label>Phone number (optional)<br>
+        <input name="phone" type="tel" data-wa-label="Phone" inputmode="tel" autocomplete="tel"
+          placeholder="e.g. 0803 000 0000" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
+      <p><label>When is best to contact you?<br>
+        <input name="when" data-wa-label="Best contact time" placeholder="e.g. evenings, weekends" style="width:100%;padding:.55rem;border:1px solid var(--line);border-radius:6px"></label></p>
+      <button class="btn btn-gold" type="submit">Book my FREE session on WhatsApp</button>
+      <small>Opens WhatsApp with your details pre-filled - you press send. Or
+      <a href="https://wa.me/2347036190935?text=I%20want%20to%20book%20a%20free%20trial%20session">message us directly</a>.</small>
+      <p class="notice wa-sent" hidden>WhatsApp is opening with your details - press
+      <strong>send</strong> to finish booking. Didn't open?
+      <a href="https://wa.me/2347036190935">Tap here to chat</a>.</p>
     </form>
     <p style="margin-top:1rem">Know another keeper?
       <a class="btn btn-green" href="https://wa.me/?text=Come%20try%20FREE%20goalkeeper%20training%20with%20me%20in%20Ibadan%20%E2%80%94%20first%20session%20costs%20nothing.%20%F0%9F%A7%A4%20https%3A%2F%2Fsubtiliorars-sys.github.io%2FIlerioluwa-GoalKeeper-Training-Institute---Preview%2Ftrials.html" target="_blank" rel="noopener">🤝 Invite a friend</a></p>
@@ -191,6 +209,7 @@
 
 <a class="wa-float" href="https://wa.me/2347036190935">💬 WhatsApp us</a>
 <script defer src="assets/js/config.js"></script>
+<script defer src="assets/js/forms.js"></script>
 <script defer src="assets/js/main.js?v=6"></script>
 </body>
 </html>
