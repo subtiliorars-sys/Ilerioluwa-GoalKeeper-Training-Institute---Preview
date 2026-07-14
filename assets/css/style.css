@@ -514,3 +514,12 @@ progress::-webkit-progress-value { background: var(--volt); border-radius: 4px; 
   }
   a[href^="#"]::after, a[href^="mailto:"]::after { content: ""; }
 }
+
+/* WhatsApp prefill trial form */
+.wa-form label { display: block; font-weight: 700; color: #fff; font-size: .9rem; margin-bottom: .9rem; }
+.wa-form p { margin: 0 0 .6rem; }
+.wa-form small { display: block; margin-top: .6rem; color: var(--muted); }
+.wa-form small a { color: var(--volt); }
+.wa-form .wa-sent { margin-top: .8rem; }
+.btn.is-disabled { opacity: .55; pointer-events: none; }
+
