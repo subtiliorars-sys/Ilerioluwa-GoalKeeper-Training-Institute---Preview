@@ -10,6 +10,11 @@ goalkeepers through structured coaching, discipline, and opportunity.
 > **Status:** demonstration build — content marked `SAMPLE` is placeholder data
 > pending confirmation by the Center.
 
+
+### First-run tip
+
+Browse the [demo site](https://subtiliorars-sys.github.io/Ilerioluwa-GoalKeeper-Training-Institute---Preview/). Use Trials to book via WhatsApp prefill (Paystack CTA stays disabled until a live URL is set). Copy marked SAMPLE is placeholder pending Center confirmation.
+
 ## About the Center
 
 The Center provides specialist goalkeeper training — technique,
